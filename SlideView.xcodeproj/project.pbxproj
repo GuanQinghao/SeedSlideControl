@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B650FF23AB7DE9000D20E4 /* AppDelegate.m */; };
+		04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510223AB7DE9000D20E4 /* SceneDelegate.m */; };
+		04B6510623AB7DE9000D20E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510523AB7DE9000D20E4 /* ViewController.m */; };
+		04B6510923AB7DE9000D20E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B6510723AB7DE9000D20E4 /* Main.storyboard */; };
+		04B6510B23AB7DFA000D20E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B6510A23AB7DFA000D20E4 /* Assets.xcassets */; };
+		04B6510E23AB7DFA000D20E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B6510C23AB7DFA000D20E4 /* LaunchScreen.storyboard */; };
+		04B6511123AB7DFA000D20E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511023AB7DFA000D20E4 /* main.m */; };
+		04B6512723AB7FBD000D20E4 /* GQHPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511923AB7FBD000D20E4 /* GQHPageControl.m */; };
+		04B6512823AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511A23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m */; };
+		04B6512923AB7FBD000D20E4 /* GQHPageControlAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */; };
+		04B6512A23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */; };
+		04B6512B23AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */; };
+		04B6512C23AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */; };
+		04B6512D23AB7FBD000D20E4 /* GQHSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512523AB7FBD000D20E4 /* GQHSlideView.m */; };
+		04B6513023AB805C000D20E4 /* GQHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */; };
+		BFD66FE0C9021953B29C03FA /* libPods-SlideView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4783F2719D4A4F53D079296 /* libPods-SlideView.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04B650FB23AB7DE9000D20E4 /* SlideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B650FE23AB7DE9000D20E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		04B650FF23AB7DE9000D20E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04B6510123AB7DE9000D20E4 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		04B6510223AB7DE9000D20E4 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		04B6510423AB7DE9000D20E4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		04B6510523AB7DE9000D20E4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04B6510823AB7DE9000D20E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		04B6510A23AB7DFA000D20E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04B6510D23AB7DFA000D20E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		04B6510F23AB7DFA000D20E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B6511023AB7DFA000D20E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04B6511923AB7FBD000D20E4 /* GQHPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHPageControl.m; sourceTree = "<group>"; };
+		04B6511A23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHPageControlTextualIndicator.m; sourceTree = "<group>"; };
+		04B6511B23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHPageControlGraphicIndicator.h; sourceTree = "<group>"; };
+		04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHPageControlAppearance.m; sourceTree = "<group>"; };
+		04B6511D23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHPageControlTextualIndicator.h; sourceTree = "<group>"; };
+		04B6511E23AB7FBD000D20E4 /* GQHPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHPageControl.h; sourceTree = "<group>"; };
+		04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHPageControlGraphicIndicator.m; sourceTree = "<group>"; };
+		04B6512023AB7FBD000D20E4 /* GQHPageControlAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHPageControlAppearance.h; sourceTree = "<group>"; };
+		04B6512123AB7FBD000D20E4 /* GQHSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideView.h; sourceTree = "<group>"; };
+		04B6512223AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideViewCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideViewCollectionViewCell.m; sourceTree = "<group>"; };
+		04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideViewCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		04B6512523AB7FBD000D20E4 /* GQHSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideView.m; sourceTree = "<group>"; };
+		04B6512623AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideViewCollectionViewCell.h; sourceTree = "<group>"; };
+		04B6512E23AB805C000D20E4 /* GQHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHCollectionViewCell.h; sourceTree = "<group>"; };
+		04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHCollectionViewCell.m; sourceTree = "<group>"; };
+		5E7CBA56C376778935DBE789 /* Pods-SlideView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideView.release.xcconfig"; path = "Target Support Files/Pods-SlideView/Pods-SlideView.release.xcconfig"; sourceTree = "<group>"; };
+		C4783F2719D4A4F53D079296 /* libPods-SlideView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SlideView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EACF4D5CDDA3140F0344C49C /* Pods-SlideView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideView.debug.xcconfig"; path = "Target Support Files/Pods-SlideView/Pods-SlideView.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04B650F823AB7DE9000D20E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFD66FE0C9021953B29C03FA /* libPods-SlideView.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04B650F223AB7DE9000D20E4 = {
+			isa = PBXGroup;
+			children = (
+				04B650FD23AB7DE9000D20E4 /* SlideView */,
+				04B650FC23AB7DE9000D20E4 /* Products */,
+				90CAB111AF3E26D3BDE18280 /* Pods */,
+				2B8C03A6CEE948747B742864 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		04B650FC23AB7DE9000D20E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04B650FB23AB7DE9000D20E4 /* SlideView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04B650FD23AB7DE9000D20E4 /* SlideView */ = {
+			isa = PBXGroup;
+			children = (
+				04B6511723AB7FBD000D20E4 /* GQHSlideView */,
+				04B650FE23AB7DE9000D20E4 /* AppDelegate.h */,
+				04B650FF23AB7DE9000D20E4 /* AppDelegate.m */,
+				04B6510123AB7DE9000D20E4 /* SceneDelegate.h */,
+				04B6510223AB7DE9000D20E4 /* SceneDelegate.m */,
+				04B6510423AB7DE9000D20E4 /* ViewController.h */,
+				04B6510523AB7DE9000D20E4 /* ViewController.m */,
+				04B6512E23AB805C000D20E4 /* GQHCollectionViewCell.h */,
+				04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */,
+				04B6510723AB7DE9000D20E4 /* Main.storyboard */,
+				04B6510A23AB7DFA000D20E4 /* Assets.xcassets */,
+				04B6510C23AB7DFA000D20E4 /* LaunchScreen.storyboard */,
+				04B6510F23AB7DFA000D20E4 /* Info.plist */,
+				04B6511023AB7DFA000D20E4 /* main.m */,
+			);
+			path = SlideView;
+			sourceTree = "<group>";
+		};
+		04B6511723AB7FBD000D20E4 /* GQHSlideView */ = {
+			isa = PBXGroup;
+			children = (
+				04B6512123AB7FBD000D20E4 /* GQHSlideView.h */,
+				04B6512523AB7FBD000D20E4 /* GQHSlideView.m */,
+				04B6512623AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.h */,
+				04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */,
+				04B6512223AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.h */,
+				04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */,
+				04B6511823AB7FBD000D20E4 /* Indicator */,
+			);
+			path = GQHSlideView;
+			sourceTree = SOURCE_ROOT;
+		};
+		04B6511823AB7FBD000D20E4 /* Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				04B6511923AB7FBD000D20E4 /* GQHPageControl.m */,
+				04B6511A23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m */,
+				04B6511B23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.h */,
+				04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */,
+				04B6511D23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.h */,
+				04B6511E23AB7FBD000D20E4 /* GQHPageControl.h */,
+				04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */,
+				04B6512023AB7FBD000D20E4 /* GQHPageControlAppearance.h */,
+			);
+			path = Indicator;
+			sourceTree = "<group>";
+		};
+		2B8C03A6CEE948747B742864 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4783F2719D4A4F53D079296 /* libPods-SlideView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90CAB111AF3E26D3BDE18280 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EACF4D5CDDA3140F0344C49C /* Pods-SlideView.debug.xcconfig */,
+				5E7CBA56C376778935DBE789 /* Pods-SlideView.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04B650FA23AB7DE9000D20E4 /* SlideView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04B6511423AB7DFA000D20E4 /* Build configuration list for PBXNativeTarget "SlideView" */;
+			buildPhases = (
+				6FDAF91F30F205E95E1BE181 /* [CP] Check Pods Manifest.lock */,
+				04B650F723AB7DE9000D20E4 /* Sources */,
+				04B650F823AB7DE9000D20E4 /* Frameworks */,
+				04B650F923AB7DE9000D20E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlideView;
+			productName = SlideView;
+			productReference = 04B650FB23AB7DE9000D20E4 /* SlideView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04B650F323AB7DE9000D20E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = GuanQinghao;
+				TargetAttributes = {
+					04B650FA23AB7DE9000D20E4 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+				};
+			};
+			buildConfigurationList = 04B650F623AB7DE9000D20E4 /* Build configuration list for PBXProject "SlideView" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04B650F223AB7DE9000D20E4;
+			productRefGroup = 04B650FC23AB7DE9000D20E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04B650FA23AB7DE9000D20E4 /* SlideView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04B650F923AB7DE9000D20E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B6510E23AB7DFA000D20E4 /* LaunchScreen.storyboard in Resources */,
+				04B6510B23AB7DFA000D20E4 /* Assets.xcassets in Resources */,
+				04B6510923AB7DE9000D20E4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6FDAF91F30F205E95E1BE181 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SlideView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04B650F723AB7DE9000D20E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B6512A23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m in Sources */,
+				04B6513023AB805C000D20E4 /* GQHCollectionViewCell.m in Sources */,
+				04B6510623AB7DE9000D20E4 /* ViewController.m in Sources */,
+				04B6512923AB7FBD000D20E4 /* GQHPageControlAppearance.m in Sources */,
+				04B6512D23AB7FBD000D20E4 /* GQHSlideView.m in Sources */,
+				04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */,
+				04B6512C23AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m in Sources */,
+				04B6512823AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m in Sources */,
+				04B6511123AB7DFA000D20E4 /* main.m in Sources */,
+				04B6512723AB7FBD000D20E4 /* GQHPageControl.m in Sources */,
+				04B6512B23AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m in Sources */,
+				04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		04B6510723AB7DE9000D20E4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04B6510823AB7DE9000D20E4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		04B6510C23AB7DFA000D20E4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04B6510D23AB7DFA000D20E4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04B6511223AB7DFA000D20E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		04B6511323AB7DFA000D20E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04B6511523AB7DFA000D20E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EACF4D5CDDA3140F0344C49C /* Pods-SlideView.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SlideView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.GuanQinghao.SlideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04B6511623AB7DFA000D20E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E7CBA56C376778935DBE789 /* Pods-SlideView.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SlideView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.GuanQinghao.SlideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04B650F623AB7DE9000D20E4 /* Build configuration list for PBXProject "SlideView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04B6511223AB7DFA000D20E4 /* Debug */,
+				04B6511323AB7DFA000D20E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04B6511423AB7DFA000D20E4 /* Build configuration list for PBXNativeTarget "SlideView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04B6511523AB7DFA000D20E4 /* Debug */,
+				04B6511623AB7DFA000D20E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04B650F323AB7DE9000D20E4 /* Project object */;
+}
