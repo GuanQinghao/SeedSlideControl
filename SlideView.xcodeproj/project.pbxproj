@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049DAC4823B05B930089234A /* ZKCycleScrollViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */; };
+		049DAC4923B05B930089234A /* ZKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049DAC4723B05B930089234A /* ZKCycleScrollView.m */; };
 		04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B650FF23AB7DE9000D20E4 /* AppDelegate.m */; };
 		04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510223AB7DE9000D20E4 /* SceneDelegate.m */; };
 		04B6510623AB7DE9000D20E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510523AB7DE9000D20E4 /* ViewController.m */; };
@@ -26,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		049DAC4423B05B920089234A /* ZKCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKCycleScrollView.h; sourceTree = "<group>"; };
+		049DAC4523B05B930089234A /* ZKCycleScrollViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKCycleScrollViewFlowLayout.h; sourceTree = "<group>"; };
+		049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKCycleScrollViewFlowLayout.m; sourceTree = "<group>"; };
+		049DAC4723B05B930089234A /* ZKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKCycleScrollView.m; sourceTree = "<group>"; };
 		04B650FB23AB7DE9000D20E4 /* SlideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B650FE23AB7DE9000D20E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04B650FF23AB7DE9000D20E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,6 +105,10 @@
 				04B6510223AB7DE9000D20E4 /* SceneDelegate.m */,
 				04B6510423AB7DE9000D20E4 /* ViewController.h */,
 				04B6510523AB7DE9000D20E4 /* ViewController.m */,
+				049DAC4423B05B920089234A /* ZKCycleScrollView.h */,
+				049DAC4723B05B930089234A /* ZKCycleScrollView.m */,
+				049DAC4523B05B930089234A /* ZKCycleScrollViewFlowLayout.h */,
+				049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */,
 				04B6512E23AB805C000D20E4 /* GQHCollectionViewCell.h */,
 				04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */,
 				04B6510723AB7DE9000D20E4 /* Main.storyboard */,
@@ -127,14 +137,14 @@
 		04B6511823AB7FBD000D20E4 /* Indicator */ = {
 			isa = PBXGroup;
 			children = (
-				04B6511923AB7FBD000D20E4 /* GQHPageControl.m */,
-				04B6511A23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m */,
-				04B6511B23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.h */,
-				04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */,
-				04B6511D23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.h */,
-				04B6511E23AB7FBD000D20E4 /* GQHPageControl.h */,
-				04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */,
 				04B6512023AB7FBD000D20E4 /* GQHPageControlAppearance.h */,
+				04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */,
+				04B6511E23AB7FBD000D20E4 /* GQHPageControl.h */,
+				04B6511923AB7FBD000D20E4 /* GQHPageControl.m */,
+				04B6511B23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.h */,
+				04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */,
+				04B6511D23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.h */,
+				04B6511A23AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -258,10 +268,12 @@
 				04B6512923AB7FBD000D20E4 /* GQHPageControlAppearance.m in Sources */,
 				04B6512D23AB7FBD000D20E4 /* GQHSlideView.m in Sources */,
 				04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */,
+				049DAC4823B05B930089234A /* ZKCycleScrollViewFlowLayout.m in Sources */,
 				04B6512C23AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m in Sources */,
 				04B6512823AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m in Sources */,
 				04B6511123AB7DFA000D20E4 /* main.m in Sources */,
 				04B6512723AB7FBD000D20E4 /* GQHPageControl.m in Sources */,
+				049DAC4923B05B930089234A /* ZKCycleScrollView.m in Sources */,
 				04B6512B23AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m in Sources */,
 				04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */,
 			);

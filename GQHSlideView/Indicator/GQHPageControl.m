@@ -276,10 +276,12 @@
     CGSize size = [self qh_sizeWithPageControlStyle:_qh_appearance.qh_style pages:_qh_totalPages];
     
     indicator.frame = CGRectMake(0.0f, 0.0f, _qh_appearance.qh_size.width, _qh_appearance.qh_size.height);
-    //TODO:图片格式?
+    
+    //TODO:图片格式?(固定、数组)
     indicator.qh_imageView.image = _qh_appearance.qh_image;
     indicator.qh_textLabel.textColor = _qh_appearance.qh_textColor;
     indicator.qh_textLabel.font = _qh_appearance.qh_textFont;
+    
     //TODO:文字格式?(固定、数组)
     indicator.qh_textLabel.text = _qh_appearance.qh_text;
     
@@ -293,11 +295,13 @@
             
             CGFloat y = 0.5f * (CGRectGetHeight(self.frame) - _qh_appearance.qh_currentSize.height);
             indicator.frame = CGRectMake(x, y, _qh_appearance.qh_currentSize.width, _qh_appearance.qh_currentSize.height);
-            //TODO:图片格式
+            
+            //TODO:图片格式?(固定、数组)
             indicator.qh_imageView.image = _qh_appearance.qh_currentImage;
             indicator.qh_textLabel.textColor = _qh_appearance.qh_currentTextColor;
             indicator.qh_textLabel.font = _qh_appearance.qh_currentTextFont;
-            //TODO:文字格式(固定、数组)
+            
+            //TODO:文字格式?(固定、数组)
             indicator.qh_textLabel.text = _qh_appearance.qh_currentText;
         }
     } else {
@@ -327,7 +331,8 @@
     indicator.qh_imageView.image = _qh_appearance.qh_image;
     indicator.qh_textLabel.textColor = _qh_appearance.qh_textColor;
     indicator.qh_textLabel.font = _qh_appearance.qh_textFont;
-    //TODO:文字格式(固定、数组)
+    
+    //TODO:文字格式?(固定、数组)
     indicator.qh_textLabel.text = [NSString stringWithFormat:@"%@/%@",@(index + 1),@(_qh_totalPages)];
 }
 
@@ -352,6 +357,14 @@
     _qh_currentPage = qh_currentPage;
     // 刷新页码指示器状态
     [self checkStateAtIndex:qh_currentPage];
+}
+
+- (void)setQh_appearance:(GQHPageControlAppearance *)qh_appearance {
+    
+    _qh_appearance = qh_appearance;
+    
+    // 重置所有页码标识视图
+    [self resetAllIndicators];
 }
 
 #pragma mark - Getter

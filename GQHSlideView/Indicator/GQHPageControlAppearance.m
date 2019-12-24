@@ -36,6 +36,10 @@
         _qh_size = CGSizeMake(10.0f, 10.0f);
         // 当前页码指示器大小
         _qh_currentSize = CGSizeMake(20.0f, 20.0f);
+        // 页码指示器背景色
+        _qh_backgroundColor = [UIColor whiteColor];
+        // 当前页码指示器背景色
+        _qh_currentBackgroundColor = [UIColor redColor];
     }
     
     return self;

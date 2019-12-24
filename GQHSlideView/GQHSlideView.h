@@ -70,6 +70,9 @@
 /// 单元格大小(适配3D效果)
 @property (nonatomic, assign) CGSize qh_itemSize;
 
+/// 3D效果缩放比例, 默认1.0f, < 1.0f: 缩小, > 1.0f: 放大
+@property (nonatomic, assign) CGFloat qh_scale;
+
 /// 轮播滚动方向
 @property (nonatomic, assign) UICollectionViewScrollDirection qh_scrollDirection;
 

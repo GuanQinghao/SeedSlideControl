@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat qh_scale;
 
 /**
- 缩放对齐方式
+ 缩放后对齐方式
  */
 @property (nonatomic, assign) GQHSlideViewCollectionViewFlowLayoutAlignment qh_alignment;
 

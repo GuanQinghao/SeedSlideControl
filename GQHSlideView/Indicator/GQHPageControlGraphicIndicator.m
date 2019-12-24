@@ -16,7 +16,7 @@
     if (self = [super initWithFrame:frame]) {
         
         // 背景色
-        self.backgroundColor = UIColor.clearColor;
+        self.backgroundColor = UIColor.whiteColor;
         
         // 图片视图
         [self addSubview:self.qh_imageView];

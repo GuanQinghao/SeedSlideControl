@@ -69,8 +69,21 @@
         CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds);
         
         _defaultSlideView = [[GQHSlideView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, MIN(width, height), 0.5f * MIN(width, height))];
-        _defaultSlideView.qh_delegate = self;
         _defaultSlideView.qh_imageArray = @[@"h1.jpg", @"h2.jpg", @"h3.jpg", @"h4.jpg"];
+        _defaultSlideView.qh_delegate = self;
+        _defaultSlideView.qh_itemSize = CGSizeMake(200.0f, 120);
+        _defaultSlideView.qh_scale = 0.8f;
+        
+        GQHPageControlAppearance *appearance = [[GQHPageControlAppearance alloc] init];
+        appearance.qh_text = @"解";
+        appearance.qh_textFont = [UIFont systemFontOfSize:12.0f];
+        appearance.qh_textColor = UIColor.redColor;
+        appearance.qh_currentText = @"封";
+        appearance.qh_currentTextColor = UIColor.blackColor;
+        appearance.qh_style = GQHPageControlStyleGraphic;
+        
+        _defaultSlideView.qh_appearance = appearance;
+        
     }
     
     return _defaultSlideView;
