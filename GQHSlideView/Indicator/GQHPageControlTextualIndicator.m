@@ -11,9 +11,7 @@
 
 @interface GQHPageControlTextualIndicator ()
 
-/**
- 页码指示器标签 自动适配大小
- */
+/// 页码指示器标签 自动适配大小
 @property (nonatomic, strong) UILabel *textLabel;
 
 @end

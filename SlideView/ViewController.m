@@ -71,8 +71,7 @@
         _defaultSlideView = [[GQHSlideView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, MIN(width, height), 0.5f * MIN(width, height))];
         _defaultSlideView.qh_imageArray = @[@"h1.jpg", @"h2.jpg", @"h3.jpg", @"h4.jpg"];
         _defaultSlideView.qh_delegate = self;
-        _defaultSlideView.qh_itemSize = CGSizeMake(200.0f, 120);
-        _defaultSlideView.qh_scale = 0.8f;
+//        _defaultSlideView.qh_timeInterval = 5.0;
         
         GQHPageControlAppearance *appearance = [[GQHPageControlAppearance alloc] init];
         appearance.qh_text = @"解";
@@ -97,10 +96,11 @@
         CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds);
         
         _customSlideView = [[GQHSlideView alloc] init];
+        _customSlideView.qh_scrollDirection = UICollectionViewScrollDirectionVertical;
         _customSlideView.frame = CGRectMake(0.0f, 0.6f * MIN(width, height), MIN(width, height), 0.5f * MIN(width, height));
         _customSlideView.qh_delegate = self;
         _customSlideView.qh_data = self.dataArray;
-        _customSlideView.qh_itemSize = CGSizeMake(300.0f, 300.0f);
+        _customSlideView.qh_timeInterval = 3.0;
     }
     
     return _customSlideView;

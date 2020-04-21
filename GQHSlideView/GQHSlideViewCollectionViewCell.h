@@ -11,9 +11,7 @@
 
 @interface GQHSlideViewCollectionViewCell : UICollectionViewCell
 
-/**
- 图片视图
- */
+/// 图片视图
 @property (nonatomic, strong) UIImageView *qh_imageView;
 
 @end

@@ -11,19 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- 图文样式页码指示器
- */
+/// 图文样式页码指示器
 @interface GQHPageControlGraphicIndicator : UIView
 
-/**
- 图片视图
- */
+/// 图片视图
 @property (nonatomic, strong) UIImageView *qh_imageView;
-
-/**
- 文本标签
- */
+/// 文本标签
 @property (nonatomic, strong) UILabel *qh_textLabel;
 
 @end

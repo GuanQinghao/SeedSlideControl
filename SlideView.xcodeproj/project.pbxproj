@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		049DAC4823B05B930089234A /* ZKCycleScrollViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */; };
-		049DAC4923B05B930089234A /* ZKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049DAC4723B05B930089234A /* ZKCycleScrollView.m */; };
 		04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B650FF23AB7DE9000D20E4 /* AppDelegate.m */; };
 		04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510223AB7DE9000D20E4 /* SceneDelegate.m */; };
 		04B6510623AB7DE9000D20E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6510523AB7DE9000D20E4 /* ViewController.m */; };
@@ -21,17 +19,12 @@
 		04B6512923AB7FBD000D20E4 /* GQHPageControlAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511C23AB7FBD000D20E4 /* GQHPageControlAppearance.m */; };
 		04B6512A23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */; };
 		04B6512B23AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */; };
-		04B6512C23AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */; };
 		04B6512D23AB7FBD000D20E4 /* GQHSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512523AB7FBD000D20E4 /* GQHSlideView.m */; };
 		04B6513023AB805C000D20E4 /* GQHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */; };
 		BFD66FE0C9021953B29C03FA /* libPods-SlideView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4783F2719D4A4F53D079296 /* libPods-SlideView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		049DAC4423B05B920089234A /* ZKCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKCycleScrollView.h; sourceTree = "<group>"; };
-		049DAC4523B05B930089234A /* ZKCycleScrollViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKCycleScrollViewFlowLayout.h; sourceTree = "<group>"; };
-		049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKCycleScrollViewFlowLayout.m; sourceTree = "<group>"; };
-		049DAC4723B05B930089234A /* ZKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKCycleScrollView.m; sourceTree = "<group>"; };
 		04B650FB23AB7DE9000D20E4 /* SlideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B650FE23AB7DE9000D20E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04B650FF23AB7DE9000D20E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,9 +46,7 @@
 		04B6511F23AB7FBD000D20E4 /* GQHPageControlGraphicIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHPageControlGraphicIndicator.m; sourceTree = "<group>"; };
 		04B6512023AB7FBD000D20E4 /* GQHPageControlAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHPageControlAppearance.h; sourceTree = "<group>"; };
 		04B6512123AB7FBD000D20E4 /* GQHSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideView.h; sourceTree = "<group>"; };
-		04B6512223AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideViewCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideViewCollectionViewCell.m; sourceTree = "<group>"; };
-		04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideViewCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		04B6512523AB7FBD000D20E4 /* GQHSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQHSlideView.m; sourceTree = "<group>"; };
 		04B6512623AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHSlideViewCollectionViewCell.h; sourceTree = "<group>"; };
 		04B6512E23AB805C000D20E4 /* GQHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -105,10 +96,6 @@
 				04B6510223AB7DE9000D20E4 /* SceneDelegate.m */,
 				04B6510423AB7DE9000D20E4 /* ViewController.h */,
 				04B6510523AB7DE9000D20E4 /* ViewController.m */,
-				049DAC4423B05B920089234A /* ZKCycleScrollView.h */,
-				049DAC4723B05B930089234A /* ZKCycleScrollView.m */,
-				049DAC4523B05B930089234A /* ZKCycleScrollViewFlowLayout.h */,
-				049DAC4623B05B930089234A /* ZKCycleScrollViewFlowLayout.m */,
 				04B6512E23AB805C000D20E4 /* GQHCollectionViewCell.h */,
 				04B6512F23AB805C000D20E4 /* GQHCollectionViewCell.m */,
 				04B6510723AB7DE9000D20E4 /* Main.storyboard */,
@@ -127,8 +114,6 @@
 				04B6512523AB7FBD000D20E4 /* GQHSlideView.m */,
 				04B6512623AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.h */,
 				04B6512323AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m */,
-				04B6512223AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.h */,
-				04B6512423AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m */,
 				04B6511823AB7FBD000D20E4 /* Indicator */,
 			);
 			path = GQHSlideView;
@@ -268,12 +253,9 @@
 				04B6512923AB7FBD000D20E4 /* GQHPageControlAppearance.m in Sources */,
 				04B6512D23AB7FBD000D20E4 /* GQHSlideView.m in Sources */,
 				04B6510023AB7DE9000D20E4 /* AppDelegate.m in Sources */,
-				049DAC4823B05B930089234A /* ZKCycleScrollViewFlowLayout.m in Sources */,
-				04B6512C23AB7FBD000D20E4 /* GQHSlideViewCollectionViewFlowLayout.m in Sources */,
 				04B6512823AB7FBD000D20E4 /* GQHPageControlTextualIndicator.m in Sources */,
 				04B6511123AB7DFA000D20E4 /* main.m in Sources */,
 				04B6512723AB7FBD000D20E4 /* GQHPageControl.m in Sources */,
-				049DAC4923B05B930089234A /* ZKCycleScrollView.m in Sources */,
 				04B6512B23AB7FBD000D20E4 /* GQHSlideViewCollectionViewCell.m in Sources */,
 				04B6510323AB7DE9000D20E4 /* SceneDelegate.m in Sources */,
 			);
@@ -417,6 +399,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JM52XZKNAA;
 				INFOPLIST_FILE = SlideView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -434,6 +417,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JM52XZKNAA;
 				INFOPLIST_FILE = SlideView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

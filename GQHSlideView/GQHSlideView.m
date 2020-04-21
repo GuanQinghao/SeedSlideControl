@@ -10,7 +10,6 @@
 #import "GQHSlideViewCollectionViewCell.h"
 #import "GQHPageControl.h"
 #import <UIImageView+WebCache.h>
-#import "GQHSlideViewCollectionViewFlowLayout.h"
 
 
 /// 唯一标识
@@ -20,19 +19,14 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 
 /// 轮播图集合视图
 @property (nonatomic, strong) UICollectionView *slideCollectionView;
-
 /// 集合视图布局
-@property (nonatomic, strong) GQHSlideViewCollectionViewFlowLayout *flowLayout;
-
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 /// 分页控件
 @property (nonatomic, strong) GQHPageControl *pageControl;
-
 /// 背景图片视图
 @property (nonatomic, strong) UIImageView *backgroundImageView;
-
 /// 定时器
 @property (nonatomic, weak) NSTimer *timer;
-
 /// 轮播内容的个数
 @property (nonatomic, assign) NSInteger itemCount;
 
@@ -93,17 +87,15 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 - (void)setupSlideCollectionView {
     NSLog(@"%s", __func__);
     
-    _flowLayout = [[GQHSlideViewCollectionViewFlowLayout alloc] init];
-    _flowLayout.qh_scale = 0.01f;
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.minimumLineSpacing = 0.0f;
     _flowLayout.minimumInteritemSpacing = 0.0f;
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//    _flowLayout.qh_alignment = GQHSlideViewCollectionViewFlowLayoutAlignmentTop;
-    
     
     _slideCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
     _slideCollectionView.delegate = self;
     _slideCollectionView.dataSource = self;
+    _slideCollectionView.pagingEnabled = YES;
     _slideCollectionView.showsVerticalScrollIndicator = NO;
     _slideCollectionView.showsHorizontalScrollIndicator = NO;
     _slideCollectionView.backgroundColor = [UIColor clearColor];
@@ -340,7 +332,6 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 /// @param scrollView 滚动视图
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     NSLog(@"%s", __func__);
-    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
     
     // 当前轮播图的索引值
     NSIndexPath *indexPath = [self currentIndexPath];
@@ -483,8 +474,6 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
             break;
     }
     
-    NSLog(@"offset:%f,item:%d secion:%d",_slideCollectionView.contentOffset.x,item,section);
-    
     return [NSIndexPath indexPathForItem:item inSection:section];
 }
 
@@ -535,12 +524,6 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     
     _qh_itemSize = qh_itemSize;
     _flowLayout.itemSize = qh_itemSize;
-}
-
-- (void)setQh_scale:(CGFloat)qh_scale {
-    
-    _qh_scale = qh_scale;
-    _flowLayout.qh_scale = qh_scale;
 }
 
 - (void)setQh_scrollDirection:(UICollectionViewScrollDirection)qh_scrollDirection {

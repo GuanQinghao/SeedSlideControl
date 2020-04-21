@@ -39,6 +39,7 @@
 
 @end
 
+
 @interface GQHSlideView : UIView
 
 /// 轮播图滚动到指定索引值
@@ -49,36 +50,26 @@
 #pragma mark - 数据源
 /// 自定义Cell对应的数据源, 可以是字典、模型
 @property (nonatomic, strong) NSArray *qh_data;
-
 /// image or imageName or imagePath or imageURL or imageURLString
 @property (nonatomic, strong) NSArray *qh_imageArray;
 
 #pragma mark - 回调
 /// 代理
 @property (nonatomic, weak) id<GQHSlideViewDelegate> qh_delegate;
-
 /// 点击监听
 @property (nonatomic, copy) void (^selectItemMonitorBlock)(NSInteger index);
-
 /// 滚动监听
 @property (nonatomic, copy) void (^scrollToItemMonitorBlock)(NSInteger index);
 
 #pragma mark - 轮播属性
 /// 自动轮播时间间隔(不自动轮播设置为CGFLOAT_MAX)
 @property (nonatomic, assign) CGFloat qh_timeInterval;
-
 /// 单元格大小(适配3D效果)
 @property (nonatomic, assign) CGSize qh_itemSize;
-
-/// 3D效果缩放比例, 默认1.0f, < 1.0f: 缩小, > 1.0f: 放大
-@property (nonatomic, assign) CGFloat qh_scale;
-
 /// 轮播滚动方向
 @property (nonatomic, assign) UICollectionViewScrollDirection qh_scrollDirection;
-
 /// 轮播图片填充模式
 @property (nonatomic, assign) UIViewContentMode qh_slideViewContentMode;
-
 /// 轮播占位图
 @property (nonatomic, strong) UIImage *qh_placeholderImage;
 

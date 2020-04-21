@@ -12,27 +12,18 @@
 
 @interface GQHPageControl ()
 
-/**
- 标签样式页码指示器(单个)
- */
+/// 标签样式页码指示器(单个)
 @property (nonatomic, strong) GQHPageControlGraphicIndicator *textualIndicator;
-
-/**
- 经典样式和图文样式页码指示器数组(单个或多个)
- */
+/// 经典样式和图文样式页码指示器数组(单个或多个)
 @property (nonatomic, strong) NSMutableArray<__kindof UIView *> *indicatorMutableArray;
 
 @end
 
 @implementation GQHPageControl
 
-/**
- 分页控件的尺寸
-
- @param style 分页控件样式
- @param count 分页控件总页数
- @return 分页控件的尺寸
- */
+/// 分页控件的尺寸
+/// @param style 分页控件样式
+/// @param count 分页控件总页数
 - (CGSize)qh_sizeWithPageControlStyle:(GQHPageControlStyle)style pages:(NSInteger)count {
     
     // 分页控件样式
@@ -73,12 +64,9 @@
 
 #pragma mark - touchEvent
 
-/**
- 点击分页控件上的页码指示器
-
- @param touches N/A
- @param event N/A
- */
+/// 点击分页控件上的页码指示器
+/// @param touches N/A
+/// @param event N/A
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -96,9 +84,7 @@
 
 #pragma mark - Layout
 
-/**
- 系统方法
- */
+/// 系统方法
 - (void)sizeToFit {
     
     // 分页控件中心点
@@ -114,9 +100,7 @@
     [self resetAllIndicators];
 }
 
-/**
- 重置所有页码指示器
- */
+/// 重置所有页码指示器
 - (void)resetAllIndicators {
     
     // 移除所有页码指示器
@@ -180,11 +164,8 @@
     [self checkStateAtIndex:_qh_currentPage];
 }
 
-/**
- 检查状态
-
- @param index 当前索引值(标签样式使用)
- */
+/// 检查状态
+/// @param index 当前索引值(标签样式使用)
 - (void)checkStateAtIndex:(NSInteger)index {
     
     switch (_qh_appearance.qh_style) {
@@ -218,12 +199,9 @@
     }
 }
 
-/**
- 更新经典样式指定页码指示器
-
- @param indicator 经典样式页码指示器
- @param index 页码指示器对应的索引值
- */
+/// 更新经典样式指定页码指示器
+/// @param indicator 经典样式页码指示器
+/// @param index 页码指示器对应的索引值
 - (void)updateClassicIndicator:(GQHPageControlGraphicIndicator *)indicator atIndex:(NSInteger)index {
     
     // 分页控件的尺寸
@@ -264,12 +242,9 @@
     }
 }
 
-/**
- 更新图文样式指定页码指示器
-
- @param indicator 图文样式页码指示器
- @param index 页码指示器对应的索引值
- */
+/// 更新图文样式指定页码指示器
+/// @param indicator 图文样式页码指示器
+/// @param index 页码指示器对应的索引值
 - (void)updateGraphicIndicator:(GQHPageControlGraphicIndicator *)indicator atIndex:(NSInteger)index {
     
     // 分页控件的尺寸
@@ -312,12 +287,9 @@
     }
 }
 
-/**
- 更新标签样式页码指示器
-
- @param indicator 标签样式页码指示器
- @param index 页码指示器对应的索引值
- */
+/// 更新标签样式页码指示器
+/// @param indicator 标签样式页码指示器
+/// @param index 页码指示器对应的索引值
 - (void)updateTextualIndicator:(GQHPageControlGraphicIndicator *)indicator atIndex:(NSInteger)index {
     
     indicator.frame = CGRectMake(0.0f, 0.0f, _qh_appearance.qh_size.width, _qh_appearance.qh_size.height);
