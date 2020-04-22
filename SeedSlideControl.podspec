@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/GuanQinghao/SeedSlideControl.git', :tag => s.version.to_s }
   s.ios.deployment_target = '10.0'
   s.source_files = 'SeedSlideControl/Classes/**/*'
-  s.dependency 'SDWebImage','~> 5.7'
+  s.dependency 'SDWebImage','~> 5.5'
 end
