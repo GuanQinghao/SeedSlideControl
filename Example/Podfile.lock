@@ -3,7 +3,7 @@ PODS:
   - SDWebImage (5.4.3):
     - SDWebImage/Core (= 5.4.3)
   - SDWebImage/Core (5.4.3)
-  - SeedSlideControl (1.0.2):
+  - SeedSlideControl (1.0.3):
     - SDWebImage (= 5.4.3)
   - Specta (1.0.7)
 
@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   SDWebImage: a7c50c8647259e297447558335df97880905a25e
-  SeedSlideControl: b8b2b25e48d5c1655091ad26f76ebdc9d7654207
+  SeedSlideControl: e9d09c10112f922e65badd310b65110c949f793b
   Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
 
 PODFILE CHECKSUM: 6116231a11e99f409febcf38a569fc10b3417af3

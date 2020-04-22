@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SeedSlideControl'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = '无限轮播控价'
   s.homepage         = 'https://github.com/GuanQinghao/SeedSlideControl'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
