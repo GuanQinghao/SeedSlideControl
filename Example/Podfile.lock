@@ -1,0 +1,33 @@
+PODS:
+  - Expecta (1.0.6)
+  - SDWebImage (5.3.4):
+    - SDWebImage/Core (= 5.3.4)
+  - SDWebImage/Core (5.3.4)
+  - SeedSlideControl (1.0.0):
+    - SDWebImage
+  - Specta (1.0.7)
+
+DEPENDENCIES:
+  - Expecta
+  - SeedSlideControl (from `../`)
+  - Specta
+
+SPEC REPOS:
+  trunk:
+    - Expecta
+    - SDWebImage
+    - Specta
+
+EXTERNAL SOURCES:
+  SeedSlideControl:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
+  SDWebImage: 295132e4da61a55c3cfd811a6dabf5d49d427706
+  SeedSlideControl: 19f2224c22b35a93c9e49de2db1862a06ecc7a0d
+  Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
+
+PODFILE CHECKSUM: 6116231a11e99f409febcf38a569fc10b3417af3
+
+COCOAPODS: 1.9.1
