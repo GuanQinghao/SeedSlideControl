@@ -62,10 +62,8 @@
 @property (nonatomic, copy) void (^scrollToItemMonitorBlock)(NSInteger index);
 
 #pragma mark - 轮播属性
-/// 自动轮播时间间隔(不自动轮播设置为CGFLOAT_MAX)
+/// 自动轮播时间间隔(默认 3.0f秒, 不自动轮播设置为CGFLOAT_MAX)
 @property (nonatomic, assign) CGFloat qh_timeInterval;
-/// 单元格大小(适配3D效果)
-@property (nonatomic, assign) CGSize qh_itemSize;
 /// 轮播滚动方向
 @property (nonatomic, assign) UICollectionViewScrollDirection qh_scrollDirection;
 /// 轮播图片填充模式

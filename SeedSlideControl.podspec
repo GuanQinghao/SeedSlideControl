@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SeedSlideControl'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = '无限轮播图'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   
   s.source_files = 'SeedSlideControl/Classes/**/*'
-  s.dependency 'SDWebImage'
+  s.dependency 'SDWebImage','~> 5.7'
   
   # s.resource_bundles = {
   #   'SeedSlideControl' => ['SeedSlideControl/Assets/*.png']

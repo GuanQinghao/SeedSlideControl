@@ -32,6 +32,10 @@
     [self.view addSubview:self.customSlideView];
 }
 
+
+
+#pragma mark -- GQHSlideViewDelegate
+
 /// 自定义轮播图cell类
 - (Class)qh_customCollectionViewCellClassForSlideView:(GQHSlideView *)slideView {
     
@@ -58,6 +62,8 @@
         customCell.qh_titleLabelTextColor = UIColor.redColor;
     }
 }
+
+#pragma mark -- Getter
 
 - (GQHSlideView *)defaultSlideView {
     
