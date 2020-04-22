@@ -1,10 +1,5 @@
 # SeedSlideControl
 
-[![CI Status](https://img.shields.io/travis/GuanQinghao/SeedSlideControl.svg?style=flat)](https://travis-ci.org/GuanQinghao/SeedSlideControl)
-[![Version](https://img.shields.io/cocoapods/v/SeedSlideControl.svg?style=flat)](https://cocoapods.org/pods/SeedSlideControl)
-[![License](https://img.shields.io/cocoapods/l/SeedSlideControl.svg?style=flat)](https://cocoapods.org/pods/SeedSlideControl)
-[![Platform](https://img.shields.io/cocoapods/p/SeedSlideControl.svg?style=flat)](https://cocoapods.org/pods/SeedSlideControl)
-
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -17,6 +12,8 @@ SeedSlideControl is available through [CocoaPods](https://cocoapods.org). To ins
 it, simply add the following line to your Podfile:
 
 ```ruby
+source 'https://github.com/GuanQinghao/SeedSpecs.git'
+
 pod 'SeedSlideControl'
 ```
 
