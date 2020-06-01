@@ -297,11 +297,8 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 /// @param decelerate 减速度
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
-    if (!_timer) {
-        
-        // 视图拖动结束创建定时器
-        [self setupTimer];
-    }
+    // 视图拖动结束创建定时器
+    [self setupTimer];
     
     // 当前轮播图的索引值
     NSIndexPath *indexPath = [self currentIndexPath];
