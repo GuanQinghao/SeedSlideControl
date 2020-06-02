@@ -7,24 +7,14 @@
 #
 
 Pod::Spec.new do |s|
-  # 名称
-  s.name             = 'SeedSlideControl'
-  # 版本
-  s.version          = '1.0.4'
-  # 概述
-  s.summary          = '无限轮播控件'
-  # 首页
-  s.homepage         = 'https://github.com/GuanQinghao/SeedSlideControl'
-  # 许可证书
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  # 作者
-  s.author           = { 'GuanQinghao' => 'qinghaoguan@163.com' }
-  # 源文件地址
-  s.source           = { :git => 'https://github.com/GuanQinghao/SeedSlideControl.git', :tag => s.version.to_s }
-  # iOS部署版本
-  s.ios.deployment_target = '10.0'
-  # 源文件路径
-  s.source_files = 'SeedSlideControl/Classes/**/*'
-  # 依赖
-  s.dependency 'SDWebImage','~> 5.7'
+    s.name = 'SeedSlideControl'
+    s.version = '1.0.5'
+    s.summary = '无限轮播控件'
+    s.homepage = 'https://github.com/GuanQinghao/SeedSlideControl'
+    s.license = { :type => 'MIT', :file => 'LICENSE' }
+    s.author = { 'GuanQinghao' => 'qinghaoguan@163.com' }
+    s.source = { :git => 'https://github.com/GuanQinghao/SeedSlideControl.git', :tag => s.version.to_s }
+    s.ios.deployment_target = '10.0'
+    s.source_files = 'SeedSlideControl/Classes/**/*'
+    s.dependency 'SDWebImage','~> 5.7'
 end

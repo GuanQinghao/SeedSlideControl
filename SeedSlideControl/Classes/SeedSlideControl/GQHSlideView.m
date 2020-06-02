@@ -8,19 +8,37 @@
 
 #import "GQHSlideView.h"
 #import "GQHSlideViewCollectionViewCell.h"
+#import "GQHSlideViewCollectionViewFlowLayout.h"
 #import "GQHPageControl.h"
 #import "UIImageView+WebCache.h"
 
 
 /// 唯一标识
-static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewCell";
+static NSString *kSlideViewCollectionViewCellKey = @"kSlideViewCollectionViewCellKey";
 
-@interface GQHSlideView () <UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,GQHPageControlDelegate>
+
+/// 滑动视图的手动拖拽方向
+typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
+    
+    UIScrollViewScrollingDirectionUp,
+    UIScrollViewScrollingDirectionDown,
+    UIScrollViewScrollingDirectionLeft,
+    UIScrollViewScrollingDirectionRight,
+};
+
+
+@interface GQHSlideView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+    //MARK:判断滑动方向
+    // 记录滚动视图最后一次偏移量
+    CGPoint lastContentOffset;
+    // 滚动视图的滚动方向
+    UIScrollViewScrollingDirection scrollingDirection;
+}
 
 /// 轮播图集合视图
 @property (nonatomic, strong) UICollectionView *slideCollectionView;
 /// 集合视图布局
-@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic, strong) GQHSlideViewCollectionViewFlowLayout *flowLayout;
 /// 分页控件
 @property (nonatomic, strong) GQHPageControl *pageControl;
 /// 背景图片视图
@@ -29,6 +47,8 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 @property (nonatomic, weak) NSTimer *timer;
 /// 轮播内容的个数
 @property (nonatomic, assign) NSInteger itemCount;
+/// 当前索引值
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -44,11 +64,8 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         return;
     }
     
-    // 当前轮播图的索引值
-    NSIndexPath *indexPath = [self currentIndexPath];
-    
     // 根据滚动方向滚动到指定位置
-    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:indexPath.section] animated:YES];
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:self.currentIndexPath.section] animated:YES];
 }
 
 #pragma mark - LifeCycle
@@ -62,6 +79,9 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         // 轮播图背景色
         self.backgroundColor = UIColor.lightGrayColor;
         
+        //MARK:设置默认值
+        // 默认大小
+        _qh_itemSize = frame.size;
         // 轮播时间间隔3秒
         _qh_timeInterval = 3.0f;
         // 轮播图图片内容显示方式
@@ -71,6 +91,7 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         
         // 配置轮播集合视图
         [self setupSlideCollectionView];
+        
         // 配置分页控件
         [self setupPageControl];
     }
@@ -81,7 +102,8 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 /// 配置轮播集合视图
 - (void)setupSlideCollectionView {
     
-    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout = [[GQHSlideViewCollectionViewFlowLayout alloc] init];
+    _flowLayout.qh_scale = _qh_scale;
     _flowLayout.minimumLineSpacing = 0.0f;
     _flowLayout.minimumInteritemSpacing = 0.0f;
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -93,7 +115,7 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     _slideCollectionView.showsVerticalScrollIndicator = NO;
     _slideCollectionView.showsHorizontalScrollIndicator = NO;
     _slideCollectionView.backgroundColor = [UIColor clearColor];
-    [_slideCollectionView registerClass:[GQHSlideViewCollectionViewCell class] forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
+    [_slideCollectionView registerClass:GQHSlideViewCollectionViewCell.class forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
     [self addSubview:_slideCollectionView];
 }
 
@@ -111,7 +133,6 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         return;
     }
     
-    _pageControl.qh_delegate = self;
     [self addSubview:self.pageControl];
     [self bringSubviewToFront:self.pageControl];
     
@@ -125,13 +146,13 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     
     _backgroundImageView.frame = self.bounds;
     _slideCollectionView.frame = self.bounds;
-    // 单元格大小
-    _flowLayout.itemSize = self.bounds.size;
+    _flowLayout.itemSize = _qh_itemSize;
     
     if (_itemCount > 0) {
         
         // 根据滚动方向滚动到指定位置, 初始位置为section1
-        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] animated:NO];
+        self.currentIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        [self scrollToItemAtIndexPath:self.currentIndexPath animated:NO];
     }
     
     // 分页控件尺寸
@@ -213,7 +234,7 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         return cell;
     } else {
         
-        GQHSlideViewCollectionViewCell *imageCell = (GQHSlideViewCollectionViewCell *)cell;
+        GQHSlideViewCollectionViewCell *internalCell = (GQHSlideViewCollectionViewCell *)cell;
         
         // 默认只显示图片, 数据源为图片数组: 图片URL字符串、图片对象、图片名称或图片路径
         NSString *imagePath = _qh_imageArray[indexPath.item];
@@ -222,7 +243,7 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
             if ([imagePath hasPrefix:@"http"]) {
                 
                 // URL字符串
-                [imageCell.qh_imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:_qh_placeholderImage];
+                [internalCell.qh_imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:_qh_placeholderImage];
             } else {
                 
                 // 图片名称
@@ -233,24 +254,24 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
                     image = [UIImage imageWithContentsOfFile:imagePath];
                 }
                 
-                imageCell.qh_imageView.image = image;
+                internalCell.qh_imageView.image = image;
             }
         } else if ([imagePath isKindOfClass:UIImage.class]) {
             
             // 图片对象
-            imageCell.qh_imageView.image = (UIImage *)imagePath;
+            internalCell.qh_imageView.image = (UIImage *)imagePath;
         } else {
             
             // 轮播图资源文件未知
-            imageCell.qh_imageView.image = _qh_placeholderImage;
+            internalCell.qh_imageView.image = _qh_placeholderImage;
             NSLog(@"轮播图资源文件未知:%s--%d",__func__,__LINE__);
         }
         
         // 图片填充模式
-        imageCell.qh_imageView.contentMode = _qh_slideViewContentMode;
-        imageCell.clipsToBounds = YES;
+        internalCell.qh_imageView.contentMode = _qh_slideViewContentMode;
+        internalCell.clipsToBounds = YES;
         
-        return imageCell;
+        return internalCell;
     }
 }
 
@@ -277,16 +298,17 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     
     if (_itemCount > 0) {
         
-        // 当前轮播图的索引值
-        NSIndexPath *indexPath = [self currentIndexPath];
-        // 当前页码
-        _pageControl.qh_currentPage = indexPath.item;
+        // 分页指示器页码
+        _pageControl.qh_currentPage = self.currentIndexPath.item;
     }
 }
 
 /// 视图将要开始拖动
 /// @param scrollView 滚动视图
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    // 记录滑动前的contentOffset
+    lastContentOffset = scrollView.contentOffset;
     
     // 开始手动拖动销毁定时器
     [self invalidateTimer];
@@ -297,42 +319,102 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
 /// @param decelerate 减速度
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
+    // 判断手滑动的方向
+    switch (self.flowLayout.scrollDirection) {
+            
+        case UICollectionViewScrollDirectionVertical: {
+            
+            // 垂直滑动
+            if (scrollView.contentOffset.y < lastContentOffset.y ){
+                
+                // 向下
+                scrollingDirection = UIScrollViewScrollingDirectionDown;
+            } else {
+                // 向上
+                scrollingDirection = UIScrollViewScrollingDirectionUp;
+            }
+        }
+            break;
+        case UICollectionViewScrollDirectionHorizontal: {
+            
+            // 水平滑动
+            if (scrollView.contentOffset.x < lastContentOffset.x ){
+                
+                // 向右
+                scrollingDirection = UIScrollViewScrollingDirectionRight;
+            } else {
+                // 向左
+                scrollingDirection = UIScrollViewScrollingDirectionLeft;
+            }
+        }
+            
+            break;
+    }
+    
+    // 计算索引值
+    switch (scrollingDirection) {
+        case UIScrollViewScrollingDirectionUp:
+        case UIScrollViewScrollingDirectionLeft: {
+            
+            // 向上向左
+            NSInteger section = self.currentIndexPath.section;
+            NSInteger item = self.currentIndexPath.item + 1;
+            if (item >= _itemCount) {
+                
+                section = section + 1;
+                item = 0;
+            }
+            
+            self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+        }
+            break;
+        case UIScrollViewScrollingDirectionDown:
+        case UIScrollViewScrollingDirectionRight: {
+            
+            // 向下向右
+            NSInteger section = self.currentIndexPath.section;
+            NSInteger item = self.currentIndexPath.item - 1;
+            if (item < 0) {
+                
+                section = section - 1;
+                item = _itemCount - 1;
+            }
+            
+            self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+        }
+            break;
+    }
+    
     // 视图拖动结束创建定时器
     [self setupTimer];
     
-    // 当前轮播图的索引值
-    NSIndexPath *indexPath = [self currentIndexPath];
-    
     // 滚动到指定索引值
-    [self scrollToItemAtIndexPath:indexPath animated:YES];
+    [self scrollToItemAtIndexPath:self.currentIndexPath animated:YES];
 }
 
 /// 视图滚动过渡动画
 /// @param scrollView 滚动视图
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     
-    // 当前轮播图的索引值
-    NSIndexPath *indexPath = [self currentIndexPath];
-    
     // 当前页码
-    _pageControl.qh_currentPage = indexPath.item;
+    _pageControl.qh_currentPage = self.currentIndexPath.item;
+    
+    // 保证显示区域为Section1
+    if (0 == self.currentIndexPath.section || 2 == self.currentIndexPath.section) {
+        
+        self.currentIndexPath = [NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1];
+    }
     
     switch (_flowLayout.scrollDirection) {
             
         case UICollectionViewScrollDirectionHorizontal: {
             
-            if (0 == indexPath.section || 2 == indexPath.section) {
-                
-                [_slideCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.item inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-            }
+            [_slideCollectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         }
             break;
         case UICollectionViewScrollDirectionVertical: {
             
-            if (0 == indexPath.section || 2 == indexPath.section) {
-                
-                [_slideCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.item inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            }
+            [_slideCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         }
             break;
     }
@@ -340,11 +422,11 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     if ([self.qh_delegate respondsToSelector:@selector(qh_slideView:didScrollToIndex:)]) {
         
         // 轮播图滑动结束代理回调
-        [self.qh_delegate qh_slideView:self didScrollToIndex:indexPath.item];
+        [self.qh_delegate qh_slideView:self didScrollToIndex:self.currentIndexPath.item];
     } else if (self.scrollToItemMonitorBlock) {
         
         // 轮播图滑动结束block回调
-        self.scrollToItemMonitorBlock(indexPath.item);
+        self.scrollToItemMonitorBlock(self.currentIndexPath.item);
     }
 }
 
@@ -399,56 +481,17 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
         return;
     }
     
-    // 当前轮播图的索引值
-    NSIndexPath *currentIndexPath = [self currentIndexPath];
-    // 轮播图目标索引值
-    NSIndexPath *targetIndex;
-    
-    if (_itemCount == (currentIndexPath.item + 1)) {
+    NSInteger section = self.currentIndexPath.section;
+    NSInteger item = self.currentIndexPath.item + 1;
+    if (item >= _itemCount) {
         
-        targetIndex = [NSIndexPath indexPathForItem:0 inSection:(currentIndexPath.section + 1)];
-        
-    } else {
-        
-        targetIndex = [NSIndexPath indexPathForItem:(currentIndexPath.item + 1) inSection:currentIndexPath.section];
+        section = section + 1;
+        item = 0;
     }
+    self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
     
     // 根据滚动方向滚动到指定位置
-    [self scrollToItemAtIndexPath:targetIndex animated:YES];
-}
-
-/// 计算轮播图当前索引值
-- (NSIndexPath *)currentIndexPath {
-    
-    NSInteger section = 1;
-    NSInteger item = 0;
-    
-    switch (_flowLayout.scrollDirection) {
-            
-        case UICollectionViewScrollDirectionHorizontal: {
-            
-            // 计算偏移索引(四舍五入)
-            NSInteger offset = round(_slideCollectionView.contentOffset.x / _flowLayout.itemSize.width);
-            
-            // 组索引
-            section = offset / _itemCount;
-            // 单元格索引
-            item = offset % _itemCount;
-        }
-            break;
-        case UICollectionViewScrollDirectionVertical: {
-            
-            // 计算偏移索引(四舍五入)
-            NSInteger offset = round(_slideCollectionView.contentOffset.y / _flowLayout.itemSize.height);
-            // 组索引
-            section = offset / _itemCount;
-            // 单元格索引
-            item = offset % _itemCount;
-        }
-            break;
-    }
-    
-    return [NSIndexPath indexPathForItem:item inSection:section];
+    [self scrollToItemAtIndexPath:self.currentIndexPath animated:YES];
 }
 
 /// 重置数据源
@@ -484,21 +527,6 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
     [self resetDataSource];
 }
 
-- (void)setQh_timeInterval:(CGFloat)qh_timeInterval {
-    
-    _qh_timeInterval = qh_timeInterval;
-    
-    [_slideCollectionView reloadData];
-    
-    [self setupTimer];
-}
-
-- (void)setQh_scrollDirection:(UICollectionViewScrollDirection)qh_scrollDirection {
-    
-    _qh_scrollDirection = qh_scrollDirection;
-    _flowLayout.scrollDirection = qh_scrollDirection;
-}
-
 - (void)setQh_delegate:(id<GQHSlideViewDelegate>)qh_delegate {
 
     _qh_delegate = qh_delegate;
@@ -513,6 +541,32 @@ static NSString *kSlideViewCollectionViewCellKey = @"GQHSlideViewCollectionViewC
             [self.slideCollectionView registerClass:customClass forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
         }
     }
+}
+
+- (void)setQh_timeInterval:(CGFloat)qh_timeInterval {
+    
+    _qh_timeInterval = qh_timeInterval;
+    
+    [_slideCollectionView reloadData];
+    [self setupTimer];
+}
+
+- (void)setQh_itemSize:(CGSize)qh_itemSize {
+    
+    _qh_itemSize = qh_itemSize;
+    _flowLayout.itemSize = qh_itemSize;
+}
+
+- (void)setQh_scale:(CGFloat)qh_scale {
+    
+    _qh_scale = qh_scale;
+    _flowLayout.qh_scale = qh_scale;
+}
+
+- (void)setQh_scrollDirection:(UICollectionViewScrollDirection)qh_scrollDirection {
+    
+    _qh_scrollDirection = qh_scrollDirection;
+    _flowLayout.scrollDirection = qh_scrollDirection;
 }
 
 - (void)setQh_placeholderImage:(UIImage *)qh_placeholderImage {

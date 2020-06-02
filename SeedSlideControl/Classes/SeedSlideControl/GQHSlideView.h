@@ -10,6 +10,8 @@
 #import "GQHPageControlAppearance.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class GQHSlideView;
 @protocol GQHSlideViewDelegate <NSObject>
 
@@ -35,10 +37,14 @@
 /// @param cell 自定义Cell
 /// @param index 索引值
 /// @param slideView 轮播图
-- (void)qh_setupCustomCell:(UICollectionViewCell *)cell forIndex:(NSInteger)index slideView:(GQHSlideView *)slideView;
+- (void)qh_setupCustomCell:(__kindof UICollectionViewCell *)cell forIndex:(NSInteger)index slideView:(GQHSlideView *)slideView;
 
 @end
 
+NS_ASSUME_NONNULL_END
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface GQHSlideView : UIView
 
@@ -64,6 +70,10 @@
 #pragma mark - 轮播属性
 /// 自动轮播时间间隔(默认 3.0f秒, 不自动轮播设置为CGFLOAT_MAX)
 @property (nonatomic, assign) CGFloat qh_timeInterval;
+/// 单元格大小(适配3D效果)
+@property (nonatomic, assign) CGSize qh_itemSize;
+/// 3D效果缩放比例
+@property (nonatomic, assign) CGFloat qh_scale;
 /// 轮播滚动方向
 @property (nonatomic, assign) UICollectionViewScrollDirection qh_scrollDirection;
 /// 轮播图片填充模式
@@ -76,3 +86,5 @@
 @property (nonatomic, strong) GQHPageControlAppearance *qh_appearance;
 
 @end
+
+NS_ASSUME_NONNULL_END

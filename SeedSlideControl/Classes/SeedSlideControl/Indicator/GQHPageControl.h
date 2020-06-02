@@ -10,6 +10,8 @@
 #import "GQHPageControlAppearance.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class GQHPageControl;
 @protocol GQHPageControlDelegate <NSObject>
 
@@ -24,6 +26,10 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface GQHPageControl : UIControl
 
@@ -42,3 +48,5 @@
 @property (nonatomic, assign) NSInteger qh_currentPage;
 
 @end
+
+NS_ASSUME_NONNULL_END
