@@ -116,6 +116,12 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     _slideCollectionView.showsHorizontalScrollIndicator = NO;
     _slideCollectionView.backgroundColor = [UIColor clearColor];
     [_slideCollectionView registerClass:GQHSlideViewCollectionViewCell.class forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
+    
+    if (@available(iOS 11.0, *)) {
+        
+        _slideCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    
     [self addSubview:_slideCollectionView];
 }
 
