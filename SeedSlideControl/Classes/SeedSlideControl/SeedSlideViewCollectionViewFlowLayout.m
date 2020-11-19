@@ -1,15 +1,14 @@
 //
-//  GQHSlideViewCollectionViewFlowLayout.m
-//  Seed
+//  SeedSlideViewCollectionViewFlowLayout.m
+//  SeedSlideControl
 //
-//  Created by Mac on 2019/12/12.
-//  Copyright © 2019 GuanQinghao. All rights reserved.
+//  Created by Hao on 2020/11/19.
 //
 
-#import "GQHSlideViewCollectionViewFlowLayout.h"
+#import "SeedSlideViewCollectionViewFlowLayout.h"
 
 
-@implementation GQHSlideViewCollectionViewFlowLayout
+@implementation SeedSlideViewCollectionViewFlowLayout
 
 /// 初始化布局
 - (void)prepareLayout {
@@ -58,27 +57,27 @@
                 // 标准化距离
                 CGFloat standardized = distance/height;
                 // 缩放比例(公式保证距离为0时不缩放)
-                CGFloat scale = 1 - standardized * _qh_scale;
+                CGFloat scale = 1 - standardized * _s_scale;
                 
                 // 水平缩放
                 attributes.transform3D = CATransform3DMakeScale(scale, 1.0f, 1.0f);
                 
                 // 垂向滚动, 左中右对齐
-                switch (_qh_alignment) {
+                switch (_s_alignment) {
                         
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentCenter: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentCenter: {
                         
                         // 默认就是居中
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentTop:
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentBottom: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentTop:
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentBottom: {
                         
                         // 当水平滚动时才有效, 此时默认居中
                         NSAssert(YES, @"only valid when 'scrollDirection' is 'UICollectionViewScrollDirectionHorizontal'.");
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentLeft: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentLeft: {
                         
                         // 居左垂向滚动
                         CGFloat x = 0.5f * (1 - scale) * self.itemSize.width;
@@ -86,7 +85,7 @@
                         attributes.frame = frame;
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentRight: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentRight: {
                         
                         // 居右垂向滚动
                         CGFloat x = 0.5f * (1 - scale) * self.itemSize.width;
@@ -128,19 +127,19 @@
                 // 标准化距离
                 CGFloat standardized = distance/width;
                 // 缩放比例(公式保证距离为0时不缩放)
-                CGFloat scale = 1 - _qh_scale * standardized;
+                CGFloat scale = 1 - _s_scale * standardized;
                 // 垂向缩放
                 attributes.transform3D = CATransform3DMakeScale(1.0f, scale, 1.0f);
                 
                 // 水平滚动, 上中下对齐
-                switch (_qh_alignment) {
+                switch (_s_alignment) {
                         
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentCenter: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentCenter: {
                         
                         // 默认就是居中
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentTop: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentTop: {
                         
                         // 居上水平滚动
                         CGFloat y = 0.5f * (1 - scale) * self.itemSize.height;
@@ -148,7 +147,7 @@
                         attributes.frame = frame;
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentBottom: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentBottom: {
                         
                         // 居下水平滚动
                         CGFloat y = 0.5f * (1 - scale) * self.itemSize.height;
@@ -156,8 +155,8 @@
                         attributes.frame = frame;
                     }
                         break;
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentLeft:
-                    case GQHSlideViewCollectionViewFlowLayoutAlignmentRight: {
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentLeft:
+                    case SeedSlideViewCollectionViewFlowLayoutAlignmentRight: {
                         
                         // 当垂向滚动时才有效, 此时默认居中
                         NSAssert(YES, @"only valid when 'scrollDirection' is 'UICollectionViewScrollDirectionVertical'.");
@@ -177,16 +176,16 @@
     return self.collectionView.contentOffset;
 }
 
-- (void)setQh_scale:(CGFloat)qh_scale {
+- (void)setS_scale:(CGFloat)s_scale {
     
     // 0.0f <= scale < 1.0f
-    qh_scale = (qh_scale < 0.0f) ? 0.0f : ((qh_scale < 1.0f) ? qh_scale : 0.99f);
-    _qh_scale = qh_scale;
+    s_scale = (s_scale < 0.0f) ? 0.0f : ((s_scale < 1.0f) ? s_scale : 0.99f);
+    _s_scale = s_scale;
 }
 
-- (void)setQh_alignment:(GQHSlideViewCollectionViewFlowLayoutAlignment)qh_alignment {
+- (void)setS_alignment:(SeedSlideViewCollectionViewFlowLayoutAlignment)s_alignment {
     
-    _qh_alignment = qh_alignment;
+    _s_alignment = s_alignment;
 }
 
 @end
