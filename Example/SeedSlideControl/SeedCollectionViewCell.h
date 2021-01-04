@@ -1,5 +1,5 @@
 //
-//  GQHCollectionViewCell.h
+//  SeedCollectionViewCell.h
 //  SeedSlideControl
 //
 //  Created by Mac on 2019/12/17.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GQHCollectionViewCell : UICollectionViewCell
+@interface SeedCollectionViewCell : UICollectionViewCell
 
 /**
  文本内容

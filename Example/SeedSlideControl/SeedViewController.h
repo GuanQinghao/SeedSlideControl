@@ -1,5 +1,5 @@
 //
-//  GQHViewController.h
+//  SeedViewController.h
 //  SeedSlideControl
 //
 //  Created by GuanQinghao on 04/22/2020.
@@ -8,6 +8,6 @@
 
 @import UIKit;
 
-@interface GQHViewController : UIViewController
+@interface SeedViewController : UIViewController
 
 @end

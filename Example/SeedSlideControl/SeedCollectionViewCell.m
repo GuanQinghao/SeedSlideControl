@@ -1,15 +1,15 @@
 //
-//  GQHCollectionViewCell.m
+//  SeedCollectionViewCell.m
 //  SeedSlideControl
 //
 //  Created by Mac on 2019/12/17.
 //  Copyright © 2019 GuanQinghao. All rights reserved.
 //
 
-#import "GQHCollectionViewCell.h"
+#import "SeedCollectionViewCell.h"
 
 
-@interface GQHCollectionViewCell ()
+@interface SeedCollectionViewCell ()
 
 /**
  文本框
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation GQHCollectionViewCell
+@implementation SeedCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     
