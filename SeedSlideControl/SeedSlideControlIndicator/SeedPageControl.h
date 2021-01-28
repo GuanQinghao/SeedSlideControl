@@ -7,11 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SeedPageControlAppearance.h"
-@class SeedPageControl;
 
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SeedPageControl;
 @protocol SeedPageControlDelegate <NSObject>
 
 @optional

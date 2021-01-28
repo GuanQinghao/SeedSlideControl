@@ -8,18 +8,13 @@
 
 #import "SeedViewController.h"
 #import "SeedCollectionViewCell.h"
-#import <SeedSlideView.h>
+#import <SeedSlideControl.h>
 
 
-@interface SeedViewController () <SeedSlideViewDelegate>
+@interface SeedViewController () <SeedSlideControlDelegate>
 
 /// 默认轮播图
-@property (nonatomic, strong) SeedSlideView *defaultSlideView;
-/// 自定义视图轮播图
-@property (nonatomic, strong) SeedSlideView *customSlideView;
-
-/// 数据源
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) SeedSlideControl *defaultSlideView;
 
 @end
 
@@ -30,127 +25,40 @@
     // Do any additional setup after loading the view.
     
     [self.view addSubview:self.defaultSlideView];
-    [self.view addSubview:self.customSlideView];
 }
 
-#pragma mark -- GQHSlideViewDelegate
 
-/// 轮播图点击回调
-/// @param slideView 轮播图
-/// @param index 点击的索引值
-- (void)s_slideView:(SeedSlideView *)slideView didSelectItemAtIndex:(NSInteger)index {
-    
-    if (slideView.tag == 0) {
-        
-        NSLog(@"点击了第%ld个", index);
-    } else if (slideView.tag == 1) {
-        
-        NSLog(@"点击了第%ld个", index);
-    }
-}
 
-/// 轮播图滚动回调
-/// @param slideView 轮播图
-/// @param index 滚动结束后的索引值
-- (void)s_slideView:(SeedSlideView *)slideView didScrollToIndex:(NSInteger)index {
-    
-    if (slideView.tag == 0) {
-        
-        NSLog(@"滚动到第%ld个", index);
-    } else if (slideView.tag == 1) {
-        
-        NSLog(@"滚动到第%ld个", index);
-    }
-}
-
-/// 自定义轮播图cell类
-/// @param slideView 轮播图
-- (Class)s_customCollectionViewCellClassForSlideView:(SeedSlideView *)slideView {
-    
-    if ([slideView isEqual:self.customSlideView]) {
-        
-        return [SeedCollectionViewCell class];
-    }
-    
-    return nil;
-}
-
-/// 自定义轮播图cell填充数据及其他设置
-/// @param cell 自定义Cell
-/// @param index 索引值
-/// @param slideView 轮播图
-- (void)s_setupCustomCell:(__kindof UICollectionViewCell *)cell forIndex:(NSInteger)index slideView:(SeedSlideView *)slideView {
-    
-    if ([slideView isEqual:self.customSlideView]) {
-        
-        SeedCollectionViewCell *customCell = (SeedCollectionViewCell *)cell;
-        NSDictionary *data = self.dataArray[index];
-        
-        customCell.qh_imageView.image = [UIImage imageNamed:data[@"image"]];
-        customCell.qh_title = data[@"text"];
-        customCell.qh_titleLabelTextFont = [UIFont systemFontOfSize:20.0f];
-        customCell.qh_titleLabelHeight = 100.0f;
-        customCell.qh_titleLabelTextColor = UIColor.redColor;
-    }
-}
+#pragma mark -- SeedSlideControlDelegate
 
 #pragma mark -- Getter
 
-- (SeedSlideView *)defaultSlideView {
+- (SeedSlideControl *)defaultSlideView {
     
     if (!_defaultSlideView) {
         
         CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds);
         CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds);
         
-        _defaultSlideView = [[SeedSlideView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, MIN(width, height), 0.5f * MIN(width, height))];
-        _defaultSlideView.tag = 0;
+        _defaultSlideView = [[SeedSlideControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, height)];
         _defaultSlideView.s_delegate = self;
-        _defaultSlideView.s_imageArray = @[@"h1.jpg", @"h2.jpg", @"h3.jpg", @"h4.jpg"];
+        _defaultSlideView.s_imageArray = @[
+            @"h1.jpg",
+            @"http://172.16.5.37:8930/group1/M01/01/9B/rBAFJWAPigGAJAE-AA4v1UFARsU285.png",
+            @"h3.jpg",
+            @"h4.jpg"];
         
-        SeedPageControlAppearance *appearance = [[SeedPageControlAppearance alloc] init];
-        appearance.s_text = @"解";
-        appearance.s_textFont = [UIFont systemFontOfSize:12.0f];
-        appearance.s_textColor = UIColor.redColor;
-        appearance.s_currentText = @"封";
-        appearance.s_currentTextColor = UIColor.blackColor;
-        appearance.s_style = SeedPageControlStyleGraphic;
+        SeedSlideControlAppearance *appearance = [[SeedSlideControlAppearance alloc] init];
+        appearance.s_style = SeedSlideControlStyleZoomable;
+        _defaultSlideView.s_slideControlAppearance = appearance;
         
-        _defaultSlideView.s_appearance = appearance;
-        
+        SeedPageControlAppearance *pageControlAppearance = [[SeedPageControlAppearance alloc] init];
+        pageControlAppearance.s_style = SeedPageControlStyleTextual;
+        pageControlAppearance.s_size = CGSizeMake(60.0f, 40.0f);
+        _defaultSlideView.s_pageControlAppearance = pageControlAppearance;
     }
     
     return _defaultSlideView;
-}
-
-- (SeedSlideView *)customSlideView {
-    
-    if (!_customSlideView) {
-        
-        CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds);
-        CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds);
-        
-        _customSlideView = [[SeedSlideView alloc] initWithFrame:CGRectMake(0.0f, 0.6f * MIN(width, height), MIN(width, height), 0.5f * MIN(width, height))];
-        _customSlideView.tag = 1;
-        _customSlideView.s_scrollDirection = UICollectionViewScrollDirectionVertical;
-        _customSlideView.s_delegate = self;
-        _customSlideView.s_data = self.dataArray;
-        _customSlideView.s_timeInterval = 3.0;
-    }
-    
-    return _customSlideView;
-}
-
-- (NSArray *)dataArray {
-    
-    if (!_dataArray) {
-        
-        _dataArray = @[@{@"image":@"h1.jpg",@"text":@"这里是占位文本，测试自定义视图轮播图"},
-                       @{@"image":@"h2.jpg",@"text":@"这里是占位文本，测试自定义视图轮播图"},
-                       @{@"image":@"h3.jpg",@"text":@"这里是占位文本，测试自定义视图轮播图"}];
-    }
-    
-    return _dataArray;
 }
 
 @end

@@ -1,15 +1,15 @@
 //
-//  SeedSlideLoadingView.m
-//  SeedSlideControl_Example
+//  SeedSlideControlLoadingIndicator.m
+//  SeedSlideControl
 //
 //  Created by Hao on 2021/1/27.
 //  Copyright © 2021 GuanQinghao. All rights reserved.
 //
 
-#import "SeedSlideLoadingView.h"
+#import "SeedSlideControlLoadingIndicator.h"
 
 
-@implementation SeedSlideLoadingView
+@implementation SeedSlideControlLoadingIndicator
 
 #pragma mark --------------------------- <lifecycle> ---------------------------
 
@@ -20,7 +20,7 @@
         self.backgroundColor = [UIColor grayColor];
         self.clipsToBounds = YES;
         
-        self.s_progressMode = SeedSlideLoadingProgressModePie;
+        self.s_progressMode = SeedSlideControlLoadingProgressModePie;
     }
     
     return self;
@@ -28,17 +28,27 @@
 
 #pragma mark ---------------------------- <layout> ----------------------------
 
+- (void)setFrame:(CGRect)frame {
+    
+    frame.size.width = 50.0f;
+    frame.size.height = 50.0f;
+    
+    self.layer.cornerRadius = 5.0f;
+    
+    [super setFrame:frame];
+}
+
 - (void)drawRect:(CGRect)rect {
     
     [UIColor.whiteColor set];
     
     switch (self.s_progressMode) {
-        case SeedSlideLoadingProgressModePie: {
+        case SeedSlideControlLoadingProgressModePie: {
             // 饼形
             [self drawPieIn:rect];
         }
             break;
-        case SeedSlideLoadingProgressModeCircle: {
+        case SeedSlideControlLoadingProgressModeCircle: {
             // 环形
             [self drawCircleIn:rect];
         }
@@ -114,16 +124,6 @@
         
         [self removeFromSuperview];
     }
-}
-
-- (void)setFrame:(CGRect)frame {
-    
-    frame.size.width = 50.0f;
-    frame.size.height = 50.0f;
-    
-    self.layer.cornerRadius = 5.0f;
-    
-    [super setFrame:frame];
 }
 
 @end

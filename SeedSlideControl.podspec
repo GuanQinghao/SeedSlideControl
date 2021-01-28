@@ -15,6 +15,20 @@ Pod::Spec.new do |s|
     s.author = { 'GuanQinghao' => 'qinghaoguan@163.com' }
     s.source = { :git => 'https://github.com/GuanQinghao/SeedSlideControl.git', :tag => s.version.to_s }
     s.ios.deployment_target = '11.0'
-    s.source_files = 'SeedSlideControl/Classes/**/*'
+    
+    s.resource_bundles = {
+        'SeedSlideControl' => ['SeedSlideControl/Assets/*.png']
+    }
+    
+    s.source_files = 'SeedSlideControl/*'
+    
+    s.subspec 'SeedSlideControlIndicator' do |ss|
+        ss.source_files = 'SeedSlideControl/SeedSlideControlIndicator/**/*'
+    end
+    
+    s.subspec 'SeedSlideControlInternalCell' do |ss|
+        ss.source_files = 'SeedSlideControl/SeedSlideControlInternalCell/**/*'
+    end
+    
     s.dependency 'SDWebImage'
 end

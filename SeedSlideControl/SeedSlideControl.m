@@ -1,19 +1,26 @@
 //
-//  SeedSlideView.m
+//  SeedSlideControl.m
 //  SeedSlideControl
 //
 //  Created by Hao on 2020/11/19.
 //  Copyright © 2020 GuanQinghao. All rights reserved.
 //
 
-#import "SeedSlideView.h"
-#import "SeedSlideViewCollectionViewCell.h"
-#import "SeedPageControl.h"
-#import "UIImageView+WebCache.h"
+#import "SeedSlideControl.h"
+#import "SeedSlideControlGraphicCollectionViewCell.h"
+#import "SeedSlideControlZoomableCollectionViewCell.h"
+
+
+/// 控制台打印
+#ifdef DEBUG
+#define NSLog(format, ...)  printf("[%s] [%s] %s [%d] %s\n",[[[NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSinceNow:(8 * 60 * 60)]] substringToIndex:19] UTF8String],[[[NSString stringWithUTF8String: __FILE__] lastPathComponent] UTF8String],[[NSString stringWithUTF8String:__FUNCTION__] UTF8String],__LINE__, [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+#else
+#define NSLog(...)
+#endif
 
 
 /// 唯一标识
-static NSString *kSlideViewCollectionViewCellKey = @"kSlideViewCollectionViewCellKey";
+static NSString *kSlideControlCollectionViewCellKey = @"kSlideControlCollectionViewCellKey";
 
 
 /// 滑动视图的手动拖拽方向
@@ -26,7 +33,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 };
 
 
-@interface SeedSlideView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+@interface SeedSlideControl () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
     
     //MARK:判断滑动方向
     // 记录滚动视图最后一次偏移量
@@ -52,12 +59,13 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 @end
 
-@implementation SeedSlideView
+@implementation SeedSlideControl
 
-/// 轮播图滚动到指定索引值
-/// @param slideView 轮播图
+/// 轮播控件滚动到指定索引值
+/// @param slideControl 轮播控件
 /// @param index 指定索引值
-- (void)s_slideView:(SeedSlideView *)slideView scrollToIndex:(NSInteger)index {
+- (void)s_slideControl:(SeedSlideControl *)slideControl scrollToIndex:(NSInteger)index {
+    NSLog(@"");
     
     if (0 == _itemCount) {
         
@@ -79,15 +87,10 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
         // 轮播图背景色
         self.backgroundColor = UIColor.lightGrayColor;
         
-        //MARK:设置默认值
-        /// 轮播图是否可以滚动, 默认YES
-        _s_scrollEnabled = YES;
-        // 轮播时间间隔3秒
-        _s_timeInterval = 3.0f;
-        // 轮播图图片内容显示方式
-        _s_slideViewContentMode = UIViewContentModeScaleToFill;
+        // 轮播外观属性
+        _s_slideControlAppearance = [[SeedSlideControlAppearance alloc] init];
         // 分页控件外观
-        _s_appearance = [[SeedPageControlAppearance alloc] init];
+        _s_pageControlAppearance = [[SeedPageControlAppearance alloc] init];
         
         // 配置轮播集合视图
         [self setupSlideCollectionView];
@@ -101,6 +104,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 /// 配置轮播集合视图
 - (void)setupSlideCollectionView {
+    NSLog(@"");
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.minimumLineSpacing = 0.0f;
@@ -115,13 +119,14 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     _slideCollectionView.showsVerticalScrollIndicator = NO;
     _slideCollectionView.showsHorizontalScrollIndicator = NO;
     _slideCollectionView.backgroundColor = [UIColor clearColor];
-    [_slideCollectionView registerClass:SeedSlideViewCollectionViewCell.class forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
+    [_slideCollectionView registerClass:SeedSlideControlGraphicCollectionViewCell.class forCellWithReuseIdentifier:kSlideControlCollectionViewCellKey];
     _slideCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self addSubview:_slideCollectionView];
 }
 
 /// 设置分页控件
 - (void)setupPageControl {
+    NSLog(@"");
     
     // 先移除分页控件
     if (_pageControl) {
@@ -144,6 +149,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// 布局子视图
 - (void)layoutSubviews {
     [super layoutSubviews];
+    NSLog(@"");
     
     _backgroundImageView.frame = self.bounds;
     _slideCollectionView.frame = self.bounds;
@@ -157,43 +163,44 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     }
     
     // 分页控件尺寸
-    CGSize size = [_pageControl s_sizeWithPageControlStyle:_s_appearance.s_style pages:_itemCount];
+    CGSize size = [_pageControl s_sizeWithPageControlStyle:_s_pageControlAppearance.s_style pages:_itemCount];
     
     // 分页控件的水平位置, 默认居中 (两侧边距10.0f)
     CGFloat x;
-    switch (_s_appearance.s_alignment) {
+    switch (_s_pageControlAppearance.s_alignment) {
             
         case SeedPageControlAlignmentLeft: {
             
-            x = 10.0f + _s_appearance.s_pageControlOffset.x;
+            x = 10.0f + _s_pageControlAppearance.s_pageControlOffset.x;
         }
             break;
         case SeedPageControlAlignmentCenter: {
             
-            x = (CGRectGetWidth(self.frame) - size.width) * 0.5f ;
+            x = 0.5f * (CGRectGetWidth(self.frame) - size.width);
         }
             break;
         case SeedPageControlAlignmentRight: {
             
-            x = CGRectGetWidth(_slideCollectionView.frame) - size.width - 10.0f + _s_appearance.s_pageControlOffset.x;
+            x = CGRectGetWidth(_slideCollectionView.frame) - size.width - 10.0f + _s_pageControlAppearance.s_pageControlOffset.x;
         }
             break;
     }
     
     // 分页控件的垂向位置
-    CGFloat y = CGRectGetHeight(_slideCollectionView.frame) - size.height - 10.0f + _s_appearance.s_pageControlOffset.y;
+    CGFloat y = CGRectGetHeight(_slideCollectionView.frame) - size.height - 10.0f + _s_pageControlAppearance.s_pageControlOffset.y;
     
     // 更新分页控件尺寸
     [_pageControl sizeToFit];
     
     // 分页控件
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
-    _pageControl.hidden = !_s_appearance.s_showPageControl;
+    _pageControl.hidden = !_s_pageControlAppearance.s_showPageControl;
 }
 
 /// N/A
 /// @param newSuperview N/A
 - (void)willMoveToSuperview:(UIView *)newSuperview {
+    NSLog(@"");
     
     // 父视图释放, 释放timer
     if (!newSuperview) {
@@ -203,12 +210,29 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 }
 
 #pragma mark --------------------- <delegate & datasource> ---------------------
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"");
+    
+    if (self.s_slideControlAppearance.s_style == SeedSlideControlStyleZoomable) {
+        
+        SeedSlideControlZoomableCollectionViewCell *internalCell = (SeedSlideControlZoomableCollectionViewCell *)cell;
+        [internalCell s_zoomWith:1.0f];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"");
+    
+}
+
 #pragma mark - UICollectionViewDataSource
 
 /// 集合视图某组的单元格个数
 /// @param collectionView 集合视图
 /// @param section 组索引值
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSLog(@"");
     
     return _itemCount;
 }
@@ -216,6 +240,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// 集合视图组数
 /// @param collectionView 集合视图
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    NSLog(@"");
     
     // 固定值
     return 3;
@@ -225,55 +250,43 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// @param collectionView 集合视图
 /// @param indexPath 单元格索引值
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"");
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSlideViewCollectionViewCellKey forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSlideControlCollectionViewCellKey forIndexPath:indexPath];
     
-    if ([self.s_delegate respondsToSelector:@selector(s_setupCustomCell:forIndex:slideView:)] && [self.s_delegate respondsToSelector:@selector(s_customCollectionViewCellClassForSlideView:)] && [self.s_delegate s_customCollectionViewCellClassForSlideView:self]) {
+    if ([self.s_delegate respondsToSelector:@selector(s_slideControl:setCustomCell:atIndex:)] && [self.s_delegate respondsToSelector:@selector(s_customCollectionViewCellClassForSlideControl:)] && [self.s_delegate s_customCollectionViewCellClassForSlideControl:self]) {
         
-        // 自定义轮播图集合视图的单元格视图(代码)
-        [self.s_delegate s_setupCustomCell:cell forIndex:indexPath.item slideView:self];
+        // 自定义轮播图集合视图的单元格视图
+        [self.s_delegate s_slideControl:self setCustomCell:cell atIndex:indexPath.item];
         
         return cell;
     } else {
         
-        SeedSlideViewCollectionViewCell *internalCell = (SeedSlideViewCollectionViewCell *)cell;
-        
-        // 默认只显示图片, 数据源为图片数组: 图片URL字符串、图片对象、图片名称或图片路径
-        NSString *imagePath = _s_imageArray[indexPath.item];
-        if ([imagePath isKindOfClass:NSString.class]) {
-            
-            if ([imagePath hasPrefix:@"http"]) {
+        switch (_s_slideControlAppearance.s_style) {
+            case SeedSlideControlStyleGraphic: {
                 
-                // URL字符串
-                [internalCell.s_imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:_s_placeholderImage];
-            } else {
+                SeedSlideControlGraphicCollectionViewCell *internalCell = (SeedSlideControlGraphicCollectionViewCell *)cell;
+                //TODO:
+                internalCell.s_asset = _s_imageArray[indexPath.item];
+                internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
+                internalCell.s_contentMode = _s_slideControlAppearance.s_contentMode;
                 
-                // 图片名称
-                UIImage *image = [UIImage imageNamed:imagePath];
-                if (!image) {
-                    
-                    // 本地图片路径
-                    image = [UIImage imageWithContentsOfFile:imagePath];
-                }
-                
-                internalCell.s_imageView.image = image;
+                return internalCell;
             }
-        } else if ([imagePath isKindOfClass:UIImage.class]) {
-            
-            // 图片对象
-            internalCell.s_imageView.image = (UIImage *)imagePath;
-        } else {
-            
-            // 轮播图资源文件未知
-            internalCell.s_imageView.image = _s_placeholderImage;
-            NSLog(@"轮播图资源文件未知:%s--%d",__func__,__LINE__);
+                break;
+            case SeedSlideControlStyleZoomable: {
+                
+                SeedSlideControlZoomableCollectionViewCell *internalCell = (SeedSlideControlZoomableCollectionViewCell *)cell;
+                internalCell.s_maximumZoomScale = _s_slideControlAppearance.s_maximumZoomScale;
+                internalCell.s_progressMode = _s_slideControlAppearance.s_progressMode;
+                internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
+                internalCell.s_asset = _s_imageArray[indexPath.item];
+                [internalCell s_zoomWith:1.0f];
+                
+                return internalCell;
+            }
+                break;
         }
-        
-        // 图片填充模式
-        internalCell.s_imageView.contentMode = _s_slideViewContentMode;
-        internalCell.clipsToBounds = YES;
-        
-        return internalCell;
     }
 }
 
@@ -281,11 +294,12 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// @param collectionView 集合视图
 /// @param indexPath 选中的单元格视图索引值
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"");
     
-    if ([self.s_delegate respondsToSelector:@selector(s_slideView:didSelectItemAtIndex:)]) {
+    if ([self.s_delegate respondsToSelector:@selector(s_slideControl:didSelectItemAtIndex:)]) {
 
         // 代理回调
-        [self.s_delegate s_slideView:self didSelectItemAtIndex:indexPath.item];
+        [self.s_delegate s_slideControl:self didSelectItemAtIndex:indexPath.item];
     }
     
     if (self.s_selectItemMonitorBlock) {
@@ -311,6 +325,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// 视图将要开始拖动
 /// @param scrollView 滚动视图
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"");
     
     // 记录滑动前的contentOffset
     lastContentOffset = scrollView.contentOffset;
@@ -323,6 +338,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// @param scrollView 滚动视图
 /// @param decelerate 减速度
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    NSLog(@"");
     
     // 判断手滑动的方向
     switch (self.flowLayout.scrollDirection) {
@@ -390,8 +406,11 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
             break;
     }
     
-    // 视图拖动结束创建定时器
-    [self setupTimer];
+    if (_s_slideControlAppearance.s_style == SeedSlideControlStyleGraphic) {
+        
+        // 视图拖动结束创建定时器
+        [self setupTimer];
+    }
     
     // 滚动到指定索引值
     [self scrollToItemAtIndexPath:self.currentIndexPath animated:YES];
@@ -400,6 +419,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 /// 视图滚动过渡动画
 /// @param scrollView 滚动视图
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    NSLog(@"");
     
     // 当前页码
     _pageControl.s_currentPage = self.currentIndexPath.item;
@@ -424,10 +444,10 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
             break;
     }
     
-    if ([self.s_delegate respondsToSelector:@selector(s_slideView:didScrollToIndex:)]) {
+    if ([self.s_delegate respondsToSelector:@selector(s_slideControl:didScrollToIndex:)]) {
         
         // 轮播图滑动结束代理回调
-        [self.s_delegate s_slideView:self didScrollToIndex:self.currentIndexPath.item];
+        [self.s_delegate s_slideControl:self didScrollToIndex:self.currentIndexPath.item];
     }
     
     if (self.s_scrollToItemMonitorBlock) {
@@ -443,6 +463,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 /// 释放定时器
 - (void)invalidateTimer {
+    NSLog(@"");
     
     // 如果timer存在 则暂停timer并置为nil
     if (_timer) {
@@ -454,18 +475,20 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 /// 设置定时器
 - (void)setupTimer {
+    NSLog(@"");
     
     // 销毁定时器
     [self invalidateTimer];
     
     // 创建定时器
-    _timer = [NSTimer scheduledTimerWithTimeInterval:_s_timeInterval target:self selector:@selector(startAutomaticScrolling) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:_s_slideControlAppearance.s_timeInterval target:self selector:@selector(startAutomaticScrolling) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
 /// 根据滚动方向滚动到指定位置
 /// @param indexPath 指定单元格索引值
 - (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+    NSLog(@"");
     
     switch (_flowLayout.scrollDirection) {
             
@@ -484,8 +507,9 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 /// 轮播图开始自动滚动
 - (void)startAutomaticScrolling {
+    NSLog(@"");
     
-    if (!_s_scrollEnabled) {
+    if (!_s_slideControlAppearance.s_scrollEnabled) {
         
         return;
     }
@@ -510,6 +534,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 /// 重置数据源
 - (void)resetDataSource {
+    NSLog(@"");
     
     _slideCollectionView.scrollEnabled = YES;
     
@@ -545,52 +570,55 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     [self resetDataSource];
 }
 
-- (void)setS_delegate:(id<SeedSlideViewDelegate>)s_delegate {
+- (void)setS_delegate:(id<SeedSlideControlDelegate>)s_delegate {
     
     _s_delegate = s_delegate;
     
-    if ([self.s_delegate respondsToSelector:@selector(s_customCollectionViewCellClassForSlideView:)]) {
+    if ([self.s_delegate respondsToSelector:@selector(s_customCollectionViewCellClassForSlideControl:)]) {
         
         // 注册自定义Cell
-        Class customClass = [self.s_delegate s_customCollectionViewCellClassForSlideView:self];
+        Class customClass = [self.s_delegate s_customCollectionViewCellClassForSlideControl:self];
         
         if (customClass) {
             
-            [self.slideCollectionView registerClass:customClass forCellWithReuseIdentifier:kSlideViewCollectionViewCellKey];
+            [self.slideCollectionView registerClass:customClass forCellWithReuseIdentifier:kSlideControlCollectionViewCellKey];
         }
     }
 }
 
-- (void)setS_scrollEnabled:(BOOL)s_scrollEnabled {
+- (void)setS_slideControlAppearance:(SeedSlideControlAppearance *)s_slideControlAppearance {
+    NSLog(@"");
     
-    _s_scrollEnabled = s_scrollEnabled;
+    _s_slideControlAppearance = s_slideControlAppearance;
     
-    _slideCollectionView.scrollEnabled = s_scrollEnabled;
-}
-
-- (void)setS_timeInterval:(CGFloat)s_timeInterval {
+    // 类型
+    switch (s_slideControlAppearance.s_style) {
+        case SeedSlideControlStyleGraphic: {
+            
+            [_slideCollectionView registerClass:SeedSlideControlGraphicCollectionViewCell.class forCellWithReuseIdentifier:kSlideControlCollectionViewCellKey];
+        }
+            break;
+        case SeedSlideControlStyleZoomable: {
+            
+            [_slideCollectionView registerClass:SeedSlideControlZoomableCollectionViewCell.class forCellWithReuseIdentifier:kSlideControlCollectionViewCellKey];
+        }
+            break;
+    }
     
-    _s_timeInterval = s_timeInterval;
-    
+    // 定时器
     [_slideCollectionView reloadData];
-    
-    if (s_timeInterval > 0.0f) {
+    if (s_slideControlAppearance.s_timeInterval > 0.0f) {
         
         [self setupTimer];
     }
-}
-
-- (void)setS_scrollDirection:(UICollectionViewScrollDirection)s_scrollDirection {
     
-    _s_scrollDirection = s_scrollDirection;
+    // 是否可以滚动
+    _slideCollectionView.scrollEnabled = s_slideControlAppearance.s_scrollEnabled;
     
-    _flowLayout.scrollDirection = s_scrollDirection;
-}
-
-- (void)setS_placeholderImage:(UIImage *)s_placeholderImage {
+    // 滚动方向
+    _flowLayout.scrollDirection = s_slideControlAppearance.s_scrollDirection;
     
-    _s_placeholderImage = s_placeholderImage;
-    
+    // 占位图
     if (!_backgroundImageView) {
         
         UIImageView *backgroundView = [[UIImageView alloc] init];
@@ -600,14 +628,14 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
         _backgroundImageView = backgroundView;
     }
     
-    _backgroundImageView.image = s_placeholderImage;
+    _backgroundImageView.image = s_slideControlAppearance.s_placeholder;
 }
 
-- (void)setS_appearance:(SeedPageControlAppearance *)s_appearance {
+- (void)setS_pageControlAppearance:(SeedPageControlAppearance *)s_pageControlAppearance {
+    NSLog(@"");
     
-    _s_appearance = s_appearance;
-    
-    _pageControl.s_appearance = s_appearance;
+    _s_pageControlAppearance = s_pageControlAppearance;
+    _pageControl.s_appearance = s_pageControlAppearance;
     
     [self layoutIfNeeded];
 }
@@ -619,7 +647,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     if (!_pageControl) {
         
         _pageControl = [[SeedPageControl alloc] init];
-        _pageControl.s_appearance = _s_appearance;
+        _pageControl.s_appearance = _s_pageControlAppearance;
     }
     
     return _pageControl;

@@ -45,7 +45,7 @@
     self.textLabel.frame = CGRectMake(horizontalPadding, verticalPadding, width, height);
     
     // 圆角
-    self.layer.cornerRadius = 0.5f * CGRectGetHeight(self.frame);
+    self.layer.cornerRadius = 0.1f * CGRectGetHeight(self.frame);
     self.layer.masksToBounds = YES;
 }
 
