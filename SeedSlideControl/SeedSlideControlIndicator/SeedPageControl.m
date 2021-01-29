@@ -295,7 +295,7 @@
     // 背景色
     indicator.backgroundColor = _s_appearance.s_backgroundColor;
     // 切圆角
-    indicator.layer.cornerRadius = 0.5f * MIN(_s_appearance.s_size.width, _s_appearance.s_size.height);
+    indicator.layer.cornerRadius = 0.1f * MIN(_s_appearance.s_size.width, _s_appearance.s_size.height);
     indicator.layer.masksToBounds = YES;
     
     //TODO:图片格式

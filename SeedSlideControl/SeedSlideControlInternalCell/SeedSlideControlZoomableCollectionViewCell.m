@@ -7,25 +7,26 @@
 //
 
 #import "SeedSlideControlZoomableCollectionViewCell.h"
+#import "SeedSlideControlReloadButton.h"
 #import "UIImageView+WebCache.h"
 
 
-@interface SeedSlideControlZoomableCollectionViewCell ()<UIScrollViewDelegate> {
+@interface SeedSlideControlZoomableCollectionViewCell () <UIScrollViewDelegate> {
     
-    // 图片视图正常宽度
-    CGFloat _normalWidth;
-    // 图片视图正常高度
-    CGFloat _normalHeight;
+    // 图片视图显示宽度
+    CGFloat _displayWidth;
+    // 图片视图显示高度
+    CGFloat _displayHeight;
 }
 
 /// 重新下载按钮
-@property (nonatomic, strong) UIButton *reloadButton DEPRECATED_MSG_ATTRIBUTE("TODO");
+@property (nonatomic, strong) SeedSlideControlReloadButton *reloadButton;
 /// 下载进度视图
 @property (nonatomic, strong) SeedSlideControlLoadingIndicator *loadingIndicator;
 /// 可缩放的图片视图
-@property (nonatomic, strong) UIImageView *zoomableImageView;
+@property (nonatomic, strong) UIImageView *imageView;
 /// 容器视图
-@property (nonatomic, strong) UIScrollView *containerScrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
@@ -43,14 +44,14 @@
         [self addGestureRecognizer];
         
         /// 容器视图
-        [self.contentView addSubview:self.containerScrollView];
+        [self.contentView addSubview:self.scrollView];
         /// 图片视图
-        [self.containerScrollView addSubview:self.zoomableImageView];
+        [self.scrollView addSubview:self.imageView];
         
-        // 图片视图正常宽度
-        _normalWidth = 0.0f;
-        // 图片视图正常高度
-        _normalHeight = 0.0f;
+        // 图片视图显示宽度
+        _displayWidth = 0.0f;
+        // 图片视图显示高度
+        _displayHeight = 0.0f;
     }
     
     return self;
@@ -65,27 +66,27 @@
     CGFloat height = CGRectGetHeight(self.bounds);
     CGPoint center = CGPointMake(0.5f * width, 0.5 * height);
     
-    self.containerScrollView.frame = self.bounds;
+    self.scrollView.frame = self.bounds;
     self.loadingIndicator.center = center;
     self.reloadButton.center = center;
     
     // 图片原始大小
-    CGFloat originalWidth = self.zoomableImageView.image ? self.zoomableImageView.image.size.width : 0.0f;
-    CGFloat originalHeight = self.zoomableImageView.image ? self.zoomableImageView.image.size.height : 0.0f;
+    CGFloat originalWidth = self.imageView.image ? self.imageView.image.size.width : 0.0f;
+    CGFloat originalHeight = self.imageView.image ? self.imageView.image.size.height : 0.0f;
     
     if (originalWidth > 0.0f && originalHeight > 0.0f) {
         
-        // 缩放比例
+        // 适配比例
         CGFloat ratio = MIN((width / originalWidth), (height / originalHeight));
-        _normalWidth = ratio * originalWidth;
-        _normalHeight = ratio * originalHeight;
-        self.zoomableImageView.frame = CGRectMake(0.0f, 0.0f, _normalWidth, _normalHeight);
+        _displayWidth = ratio * originalWidth;
+        _displayHeight = ratio * originalHeight;
+        self.imageView.frame = CGRectMake(0.0f, 0.0f, _displayWidth, _displayHeight);
     } else {
         
-        self.zoomableImageView.frame = CGRectZero;
+        self.imageView.frame = CGRectZero;
     }
     
-    self.zoomableImageView.center = center;
+    self.imageView.center = center;
 }
 
 #pragma mark --------------------- <delegate & datasource> ---------------------
@@ -96,7 +97,7 @@
 /// @param scrollView 滚动视图
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
-    return self.zoomableImageView;
+    return self.imageView;
 }
 
 /// 开始缩放
@@ -125,8 +126,8 @@
     CGFloat frameWidth = CGRectGetWidth(scrollView.frame);
     CGFloat frameHeight = CGRectGetHeight(scrollView.frame);
     
-    CGFloat scalingWidth = scrollView.zoomScale * _normalWidth;
-    CGFloat scalingHeight = scrollView.zoomScale * _normalHeight;
+    CGFloat scalingWidth = scrollView.zoomScale * _displayWidth;
+    CGFloat scalingHeight = scrollView.zoomScale * _displayHeight;
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
@@ -141,8 +142,8 @@
         y = floor(0.5f * (frameHeight - scalingHeight));
     }
     
-    self.zoomableImageView.frame = CGRectMake(x, y, scalingWidth, scalingHeight);
-    scrollView.contentSize = self.zoomableImageView.frame.size;
+    self.imageView.frame = CGRectMake(x, y, scalingWidth, scalingHeight);
+    scrollView.contentSize = self.imageView.frame.size;
 }
 
 #pragma mark ---------------------------- <method> ----------------------------
@@ -154,7 +155,7 @@
 - (void)s_zoomWith:(CGFloat)scale {
     NSLog(@"");
     
-    [self.containerScrollView setZoomScale:scale animated:YES];
+    [self.scrollView setZoomScale:scale animated:YES];
 }
 
 #pragma mark - target method
@@ -166,32 +167,32 @@
     [self setS_asset:_s_asset];
 }
 
-/// 单击
+/// 单击事件
 /// @param sender 单击手势
 - (IBAction)onSingleClick:(UITapGestureRecognizer *)sender {
     NSLog(@"");
     
-    if (self.s_clikc) {
+    if (self.s_onClick) {
         
-        self.s_clikc(sender);
+        self.s_onClick(sender);
     }
 }
 
-/// 双击
+/// 双击按触点进行缩放
 /// @param sender 双击手势
 - (IBAction)onDoubleClick:(UITapGestureRecognizer *)sender {
     NSLog(@"");
     
     CGPoint touchPoint = [sender locationInView:self];
     
-    if (self.containerScrollView.zoomScale <= 1.0f) {
+    if (self.scrollView.zoomScale <= 1.0f) {
         
-        CGFloat x = touchPoint.x + self.containerScrollView.contentOffset.x;
-        CGFloat y = touchPoint.y + self.containerScrollView.contentOffset.y;
-        [self.containerScrollView zoomToRect:CGRectMake(x, y, 10.0f, 10.0f) animated:YES];
+        CGFloat x = touchPoint.x + self.scrollView.contentOffset.x;
+        CGFloat y = touchPoint.y + self.scrollView.contentOffset.y;
+        [self.scrollView zoomToRect:CGRectMake(x, y, 1.0f, 1.0f) animated:YES];
     } else {
         
-        [self.containerScrollView setZoomScale:1.0f animated:YES];
+        [self.scrollView setZoomScale:1.0f animated:YES];
     }
 }
 
@@ -235,7 +236,7 @@
             [self addSubview:self.loadingIndicator];
             
             __weak typeof(self) weakSelf = self;
-            [self.zoomableImageView sd_setImageWithURL:[NSURL URLWithString:asset] placeholderImage:self.s_placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:asset] placeholderImage:self.s_placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
                 
                 // 主线程刷新图片下载进度
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -268,16 +269,16 @@
                 image = [UIImage imageWithContentsOfFile:asset];
             }
             
-            self.zoomableImageView.image = image;
+            self.imageView.image = image;
         }
     } else if ([asset isKindOfClass:UIImage.class]) {
         
         // 图片资源:图片对象(UIImage)
-        self.zoomableImageView.image = (UIImage *)asset;
+        self.imageView.image = (UIImage *)asset;
     } else {
         
         // 未能识别资源文件
-        self.zoomableImageView.image = _s_placeholder;
+        self.imageView.image = _s_placeholder;
         NSLog(@"未能识别资源文件:%s--%d",__func__,__LINE__);
     }
 }
@@ -303,24 +304,16 @@
 - (void)setS_maximumZoomScale:(CGFloat)s_maximumZoomScale {
     
     _s_maximumZoomScale = s_maximumZoomScale;
-    self.containerScrollView.maximumZoomScale = s_maximumZoomScale;
+    self.scrollView.maximumZoomScale = s_maximumZoomScale;
 }
 
 #pragma mark - getter
 
-- (UIButton *)reloadButton {
+- (SeedSlideControlReloadButton *)reloadButton {
     
     if (!_reloadButton) {
         
-        _reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _reloadButton.backgroundColor = [UIColor grayColor];
-        _reloadButton.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
-        _reloadButton.layer.cornerRadius = 5.0f;
-        _reloadButton.clipsToBounds = YES;
-        
-        NSString *bundleName = @"SeedSlideControl.bundle";
-        NSString *bundlePath = [[NSBundle bundleForClass:NSClassFromString(@"SeedSlideControl")] pathForResource:@"reload.png" ofType:nil inDirectory:bundleName];
-        [_reloadButton setImage:[UIImage imageWithContentsOfFile:bundlePath] forState:UIControlStateNormal];
+        _reloadButton = [SeedSlideControlReloadButton s_reloadButton];
         
         [_reloadButton addTarget:self action:@selector(reloadAsset:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -338,33 +331,33 @@
     return _loadingIndicator;
 }
 
-- (UIImageView *)zoomableImageView {
+- (UIImageView *)imageView {
     
-    if (!_zoomableImageView) {
+    if (!_imageView) {
         
-        _zoomableImageView = [[UIImageView alloc] init];
-        _zoomableImageView.backgroundColor = [UIColor clearColor];
-        _zoomableImageView.contentMode = UIViewContentModeScaleToFill;
-        _zoomableImageView.userInteractionEnabled = YES;
-        _zoomableImageView.clipsToBounds = YES;
+        _imageView = [[UIImageView alloc] init];
+        _imageView.backgroundColor = [UIColor clearColor];
+        _imageView.contentMode = UIViewContentModeScaleToFill;
+        _imageView.userInteractionEnabled = YES;
+        _imageView.clipsToBounds = YES;
     }
     
-    return _zoomableImageView;
+    return _imageView;
 }
 
-- (UIScrollView *)containerScrollView {
+- (UIScrollView *)scrollView {
     
-    if (!_containerScrollView) {
+    if (!_scrollView) {
         
-        _containerScrollView = [[UIScrollView alloc] init];
-        _containerScrollView.delegate = self;
-        _containerScrollView.minimumZoomScale = 1.0f;
-        _containerScrollView.showsVerticalScrollIndicator = NO;
-        _containerScrollView.showsHorizontalScrollIndicator = NO;
-        _containerScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        _scrollView = [[UIScrollView alloc] init];
+        _scrollView.delegate = self;
+        _scrollView.minimumZoomScale = 1.0f;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
-    return _containerScrollView;
+    return _scrollView;
 }
 
 @end

@@ -7,13 +7,14 @@
 //
 
 #import "SeedSlideControlGraphicCollectionViewCell.h"
+#import "SeedSlideControlReloadButton.h"
 #import "UIImageView+WebCache.h"
 
 
 @interface SeedSlideControlGraphicCollectionViewCell ()
 
 /// 重新下载按钮
-@property (nonatomic, strong) UIButton *reloadButton DEPRECATED_MSG_ATTRIBUTE("TODO");
+@property (nonatomic, strong) SeedSlideControlReloadButton *reloadButton;
 /// 下载进度视图
 @property (nonatomic, strong) SeedSlideControlLoadingIndicator *loadingIndicator;
 /// 文本框
@@ -74,7 +75,7 @@
         return;
     }
     
-    // 图片和文本资源:图片<image>和文字<text>字典(NSDictionary)
+    // 图片和文本资源:NSDictionary<key=image,key=text>
     // 图片资源:图片URL字符串(NSString)、图片对象(UIImage)、图片名称(NSString)或图片路径(NSString)
     // 文本资源:文本字符串(NSString)
     
@@ -153,10 +154,11 @@
 
 -(void)setS_asset:(id)s_asset {
     
-    // 图片和文本资源:图片<image>和文字<text>字典(NSDictionary)
+    _s_asset = s_asset;
+    
+    // 图片和文本资源:NSDictionary<key=image,key=text>
     // 图片资源:图片URL字符串(NSString)、图片对象(UIImage)、图片名称(NSString)或图片路径(NSString)
     // 文本资源:文本字符串(NSString)
-    _s_asset = s_asset;
     
     if ([s_asset isKindOfClass:NSDictionary.class]) {
         
@@ -200,10 +202,10 @@
     self.imageView.contentMode = s_contentMode;
 }
 
-- (void)setS_labelBackgroundColor:(UIColor *)s_labelBackgroundColor {
+- (void)setS_labelTextFont:(UIFont *)s_labelTextFont {
     
-    _s_labelBackgroundColor = s_labelBackgroundColor;
-    self.textLabel.backgroundColor = s_labelBackgroundColor;
+    _s_labelTextFont = s_labelTextFont;
+    self.textLabel.font = s_labelTextFont;
 }
 
 - (void)setS_labelTextColor:(UIColor *)s_labelTextColor {
@@ -212,10 +214,10 @@
     self.textLabel.textColor = s_labelTextColor;
 }
 
-- (void)setS_labelTextFont:(UIFont *)s_labelTextFont {
+- (void)setS_labelBackgroundColor:(UIColor *)s_labelBackgroundColor {
     
-    _s_labelTextFont = s_labelTextFont;
-    self.textLabel.font = s_labelTextFont;
+    _s_labelBackgroundColor = s_labelBackgroundColor;
+    self.textLabel.backgroundColor = s_labelBackgroundColor;
 }
 
 - (void)setS_labelTextAlignment:(NSTextAlignment)s_labelTextAlignment {
@@ -226,19 +228,11 @@
 
 #pragma mark - getter
 
-- (UIButton *)reloadButton {
+- (SeedSlideControlReloadButton *)reloadButton {
     
     if (!_reloadButton) {
         
-        _reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _reloadButton.backgroundColor = [UIColor grayColor];
-        _reloadButton.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
-        _reloadButton.layer.cornerRadius = 5.0f;
-        _reloadButton.clipsToBounds = YES;
-        
-        NSString *bundleName = @"SeedSlideControl.bundle";
-        NSString *bundlePath = [[NSBundle bundleForClass:NSClassFromString(@"SeedSlideControl")] pathForResource:@"reload.png" ofType:nil inDirectory:bundleName];
-        [_reloadButton setImage:[UIImage imageWithContentsOfFile:bundlePath] forState:UIControlStateNormal];//TODO:
+        _reloadButton = [SeedSlideControlReloadButton s_reloadButton];
         
         [_reloadButton addTarget:self action:@selector(reloadAsset:) forControlEvents:UIControlEventTouchUpInside];
     }

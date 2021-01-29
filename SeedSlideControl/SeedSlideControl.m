@@ -78,31 +78,26 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 #pragma mark --------------------------- <lifecycle> ---------------------------
 
-/// 初始化
-/// @param frame N/A
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        
-        // 轮播图背景色
-        self.backgroundColor = UIColor.lightGrayColor;
         
         // 轮播外观属性
         _s_slideControlAppearance = [[SeedSlideControlAppearance alloc] init];
         // 分页控件外观
         _s_pageControlAppearance = [[SeedPageControlAppearance alloc] init];
         
-        // 配置轮播集合视图
+        // 设置轮播集合视图
         [self setupSlideCollectionView];
         
-        // 配置分页控件
+        // 设置分页控件
         [self setupPageControl];
     }
     
     return self;
 }
 
-/// 配置轮播集合视图
+/// 设置轮播集合视图
 - (void)setupSlideCollectionView {
     NSLog(@"");
     
@@ -134,11 +129,12 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
         [_pageControl removeFromSuperview];
     }
     
-    if (0 == _itemCount) {
+    if (_itemCount <= 0) {
         
         return;
     }
     
+    // 添加分页控件
     [self addSubview:self.pageControl];
     [self bringSubviewToFront:self.pageControl];
     
@@ -157,8 +153,8 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     
     if (_itemCount > 0) {
         
-        // 根据滚动方向滚动到指定位置, 初始位置为section1
-        self.currentIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        // 根据滚动方向滚动到指定位置, 无限轮播时初始位置为section1
+        self.currentIndexPath = _s_slideControlAppearance.s_endless ? [NSIndexPath indexPathForItem:0 inSection:1] : [NSIndexPath indexPathForItem:0 inSection:0];
         [self scrollToItemAtIndexPath:self.currentIndexPath animated:NO];
     }
     
@@ -171,7 +167,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
             
         case SeedPageControlAlignmentLeft: {
             
-            x = 10.0f + _s_pageControlAppearance.s_pageControlOffset.x;
+            x = 10.0f + _s_pageControlAppearance.s_offset.x;
         }
             break;
         case SeedPageControlAlignmentCenter: {
@@ -181,13 +177,13 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
             break;
         case SeedPageControlAlignmentRight: {
             
-            x = CGRectGetWidth(_slideCollectionView.frame) - size.width - 10.0f + _s_pageControlAppearance.s_pageControlOffset.x;
+            x = CGRectGetWidth(_slideCollectionView.frame) - size.width - 10.0f + _s_pageControlAppearance.s_offset.x;
         }
             break;
     }
     
     // 分页控件的垂向位置
-    CGFloat y = CGRectGetHeight(_slideCollectionView.frame) - size.height - 10.0f + _s_pageControlAppearance.s_pageControlOffset.y;
+    CGFloat y = CGRectGetHeight(_slideCollectionView.frame) - size.height - 10.0f + _s_pageControlAppearance.s_offset.y;
     
     // 更新分页控件尺寸
     [_pageControl sizeToFit];
@@ -211,19 +207,21 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 #pragma mark --------------------- <delegate & datasource> ---------------------
 
+#pragma mark - UICollectionViewDelegate
+
+/// 集合视图单元格视图已经移除显示范围
+/// @param collectionView 集合视图
+/// @param cell 单元格视图
+/// @param indexPath 单元格索引值
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"");
     
-    if (self.s_slideControlAppearance.s_style == SeedSlideControlStyleZoomable) {
+    if (_s_slideControlAppearance.s_style == SeedSlideControlStyleZoomable) {
         
+        // 缩放浏览模式, 恢复缩放比例
         SeedSlideControlZoomableCollectionViewCell *internalCell = (SeedSlideControlZoomableCollectionViewCell *)cell;
         [internalCell s_zoomWith:1.0f];
     }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"");
-    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -242,8 +240,8 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     NSLog(@"");
     
-    // 固定值
-    return 3;
+    // 是否无限循环
+    return _s_slideControlAppearance.s_endless ? 3 : 1;
 }
 
 /// 集合视图的单元格视图
@@ -256,7 +254,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     
     if ([self.s_delegate respondsToSelector:@selector(s_slideControl:setCustomCell:atIndex:)] && [self.s_delegate respondsToSelector:@selector(s_customCollectionViewCellClassForSlideControl:)] && [self.s_delegate s_customCollectionViewCellClassForSlideControl:self]) {
         
-        // 自定义轮播图集合视图的单元格视图
+        // 自定义轮播控件集合视图的单元格视图
         [self.s_delegate s_slideControl:self setCustomCell:cell atIndex:indexPath.item];
         
         return cell;
@@ -267,7 +265,7 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
                 
                 SeedSlideControlGraphicCollectionViewCell *internalCell = (SeedSlideControlGraphicCollectionViewCell *)cell;
                 //TODO:
-                internalCell.s_asset = _s_imageArray[indexPath.item];
+                internalCell.s_asset = _s_dataSource[indexPath.item];
                 internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
                 internalCell.s_contentMode = _s_slideControlAppearance.s_contentMode;
                 
@@ -280,8 +278,19 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
                 internalCell.s_maximumZoomScale = _s_slideControlAppearance.s_maximumZoomScale;
                 internalCell.s_progressMode = _s_slideControlAppearance.s_progressMode;
                 internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
-                internalCell.s_asset = _s_imageArray[indexPath.item];
-                [internalCell s_zoomWith:1.0f];
+                internalCell.s_asset = _s_dataSource[indexPath.item];
+                internalCell.s_onClick = ^(id  _Nullable sender) {
+                    
+                    if ([self.s_delegate respondsToSelector:@selector(s_slideControl:didSelectItemAtIndex:)]) {
+                        
+                        [self.s_delegate s_slideControl:self didSelectItemAtIndex:indexPath.item];
+                    }
+                    
+                    if (self.s_selectItemMonitorBlock) {
+                        
+                        self.s_selectItemMonitorBlock(indexPath.item);
+                    }
+                };
                 
                 return internalCell;
             }
@@ -334,6 +343,10 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     [self invalidateTimer];
 }
 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSLog(@"%f-%f",velocity.x,velocity.y);
+}
+
 /// 视图已经结束拖动
 /// @param scrollView 滚动视图
 /// @param decelerate 减速度
@@ -372,48 +385,52 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
             break;
     }
     
-    // 计算索引值
-    switch (scrollingDirection) {
-        case UIScrollViewScrollingDirectionUp:
-        case UIScrollViewScrollingDirectionLeft: {
-            
-            // 向上向左
-            NSInteger section = self.currentIndexPath.section;
-            NSInteger item = self.currentIndexPath.item + 1;
-            if (item >= _itemCount) {
-                
-                section = section + 1;
-                item = 0;
-            }
-            
-            self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
-        }
-            break;
-        case UIScrollViewScrollingDirectionDown:
-        case UIScrollViewScrollingDirectionRight: {
-            
-            // 向下向右
-            NSInteger section = self.currentIndexPath.section;
-            NSInteger item = self.currentIndexPath.item - 1;
-            if (item < 0) {
-                
-                section = section - 1;
-                item = _itemCount - 1;
-            }
-            
-            self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
-        }
-            break;
-    }
-    
-    if (_s_slideControlAppearance.s_style == SeedSlideControlStyleGraphic) {
+    if (_s_slideControlAppearance.s_endless) {
         
-        // 视图拖动结束创建定时器
-        [self setupTimer];
+        // 计算索引值
+        switch (scrollingDirection) {
+            case UIScrollViewScrollingDirectionUp:
+            case UIScrollViewScrollingDirectionLeft: {
+                
+                // 向上向左
+                NSInteger section = self.currentIndexPath.section;
+                NSInteger item = self.currentIndexPath.item + 1;
+                if (item >= _itemCount) {
+                    
+                    section = section + 1;
+                    item = 0;
+                }
+                
+                self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            }
+                break;
+            case UIScrollViewScrollingDirectionDown:
+            case UIScrollViewScrollingDirectionRight: {
+                
+                // 向下向右
+                NSInteger section = self.currentIndexPath.section;
+                NSInteger item = self.currentIndexPath.item - 1;
+                if (item < 0) {
+                    
+                    section = section - 1;
+                    item = _itemCount - 1;
+                }
+                
+                self.currentIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            }
+                break;
+        }
+        
+        if (_s_slideControlAppearance.s_style == SeedSlideControlStyleGraphic) {
+            
+            // 视图拖动结束创建定时器
+            [self setupTimer];
+        }
+        
+        // 滚动到指定索引值
+        [self scrollToItemAtIndexPath:self.currentIndexPath animated:YES];
     }
     
-    // 滚动到指定索引值
-    [self scrollToItemAtIndexPath:self.currentIndexPath animated:YES];
 }
 
 /// 视图滚动过渡动画
@@ -424,24 +441,27 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     // 当前页码
     _pageControl.s_currentPage = self.currentIndexPath.item;
     
-    // 保证显示区域为Section1
-    if (0 == self.currentIndexPath.section || 2 == self.currentIndexPath.section) {
+    if (_s_slideControlAppearance.s_endless) {
         
-        self.currentIndexPath = [NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1];
-    }
-    
-    switch (_flowLayout.scrollDirection) {
+        // 保证显示区域为Section1
+        if (0 == self.currentIndexPath.section || 2 == self.currentIndexPath.section) {
             
-        case UICollectionViewScrollDirectionHorizontal: {
-            
-            [_slideCollectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            self.currentIndexPath = [NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1];
         }
-            break;
-        case UICollectionViewScrollDirectionVertical: {
-            
-            [_slideCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        
+        switch (_flowLayout.scrollDirection) {
+                
+            case UICollectionViewScrollDirectionHorizontal: {
+                
+                [_slideCollectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            }
+                break;
+            case UICollectionViewScrollDirectionVertical: {
+                
+                [_slideCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndexPath.item inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            }
+                break;
         }
-            break;
     }
     
     if ([self.s_delegate respondsToSelector:@selector(s_slideControl:didScrollToIndex:)]) {
@@ -509,6 +529,11 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 - (void)startAutomaticScrolling {
     NSLog(@"");
     
+    if (!_s_slideControlAppearance.s_endless) {
+        
+        return;
+    }
+    
     if (!_s_slideControlAppearance.s_scrollEnabled) {
         
         return;
@@ -549,24 +574,10 @@ typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
 
 #pragma mark - setter
 
-- (void)setS_data:(NSArray *)s_data {
+- (void)setS_dataSource:(NSArray<NSString *> *)s_dataSource {
     
-    _s_data = s_data;
-    
-    _itemCount = s_data.count;
-    
-    // 重置数据源
-    [self resetDataSource];
-}
-
-- (void)setS_imageArray:(NSArray *)s_imageArray {
-    
-    // image or imageName or imagePath or imageURL or imageURLString
-    _s_imageArray = s_imageArray;
-    
-    _itemCount = s_imageArray.count;
-    
-    // 重置数据源
+    _s_dataSource = s_dataSource;
+    _itemCount = s_dataSource.count;
     [self resetDataSource];
 }
 

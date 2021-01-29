@@ -18,7 +18,7 @@
         // 分页控件对齐方式
         _s_alignment = SeedPageControlAlignmentCenter;
         // 分页控件的偏移量
-        _s_pageControlOffset = CGPointZero;
+        _s_offset = CGPointZero;
         
         //MARK:分页控件属性
         // 分页控件样式

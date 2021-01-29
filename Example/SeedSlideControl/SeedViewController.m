@@ -42,7 +42,7 @@
         
         _defaultSlideView = [[SeedSlideControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, height)];
         _defaultSlideView.s_delegate = self;
-        _defaultSlideView.s_imageArray = @[
+        _defaultSlideView.s_dataSource = @[
             @"h1.jpg",
             @"http://172.16.5.37:8930/group1/M01/01/9B/rBAFJWAPigGAJAE-AA4v1UFARsU285.png",
             @"h3.jpg",
@@ -50,6 +50,7 @@
         
         SeedSlideControlAppearance *appearance = [[SeedSlideControlAppearance alloc] init];
         appearance.s_style = SeedSlideControlStyleZoomable;
+        appearance.s_endless = NO;
         _defaultSlideView.s_slideControlAppearance = appearance;
         
         SeedPageControlAppearance *pageControlAppearance = [[SeedPageControlAppearance alloc] init];

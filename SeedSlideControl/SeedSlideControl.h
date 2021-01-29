@@ -53,35 +53,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param index 指定索引值
 - (void)s_slideControl:(SeedSlideControl *)slideControl scrollToIndex:(NSInteger)index;
 
-#pragma mark - 数据源
-
-/// 自定义Cell对应的数据源, 可以是字典、模型
-@property (nonatomic, strong) NSArray *s_data;
-
-/// image or imageName or imagePath or imageURL or imageURLString
-@property (nonatomic, strong) NSArray *s_imageArray;
-
-
-#pragma mark - 回调
+/// GraphicStyle内置数据源: NSArray<UIImage>、NSArray<NSString>、NSArray<NSDictionary<key=image,key=text>>
+/// ZoomableStyle内置数据源: NSArray<UIImage>、NSArray<NSString>
+/// 自定义数据源: 对应自定义cell的字典数组或模型数组
+@property (nonatomic, strong) NSArray<NSString *> *s_dataSource;
 
 /// 代理
 @property (nonatomic, weak) id<SeedSlideControlDelegate> s_delegate;
-
 /// 点击监听
 @property (nonatomic, copy) void (^s_selectItemMonitorBlock)(NSInteger index);
 /// 滚动监听
 @property (nonatomic, copy) void (^s_scrollToItemMonitorBlock)(NSInteger index);
 
-
-#pragma mark - 轮播属性
-
-/// 轮播外观属性
+/// 轮播属性
 @property (nonatomic, strong) SeedSlideControlAppearance *s_slideControlAppearance;
-
-
-#pragma mark - 分页控件属性
-
-/// 分页控件外观属性
+/// 分页控件属性
 @property (nonatomic, strong) SeedPageControlAppearance *s_pageControlAppearance;
 
 @end

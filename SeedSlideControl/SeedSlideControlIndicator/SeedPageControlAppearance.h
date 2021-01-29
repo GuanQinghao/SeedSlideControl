@@ -49,7 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 分页控件对齐方式
 @property (nonatomic, assign) SeedPageControlAlignment s_alignment;
 /// 分页控件偏移量
-@property (nonatomic, assign) CGPoint s_pageControlOffset;
+@property (nonatomic, assign) CGPoint s_offset;
+/// 单页是否隐藏分页控件
+@property (nonatomic, assign) BOOL s_hidesForSinglePage;
+/// 是否显示分页控件
+@property (nonatomic, assign) BOOL s_showPageControl;
 
 
 #pragma mark - 分页控件属性
@@ -58,10 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SeedPageControlStyle s_style;
 /// 页码指示器之间的水平间距
 @property (nonatomic, assign) CGFloat s_spacing;
-/// 单页是否隐藏分页控件
-@property (nonatomic, assign) BOOL s_hidesForSinglePage;
-/// 是否显示分页控件
-@property (nonatomic, assign) BOOL s_showPageControl;
 
 
 #pragma mark - 页码指示器属性
