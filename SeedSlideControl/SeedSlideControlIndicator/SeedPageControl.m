@@ -20,6 +20,40 @@
 
 @implementation SeedPageControl
 
+#pragma mark --------------------------- <lifecycle> ---------------------------
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    
+    if (self = [super initWithFrame:frame]) {
+        
+        _s_totalPages = 0;
+        _s_currentPage = 0;
+    }
+    
+    return self;
+}
+
+#pragma mark ---------------------------- <layout> ----------------------------
+
+- (void)sizeToFit {
+    
+    // 分页控件中心点
+    CGPoint center = self.center;
+    // 分页控件的尺寸
+    CGSize size = [self s_sizeWithPageControlStyle:_s_appearance.s_style pages:_s_totalPages];
+    // 分页控件新的frame
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), size.width, size.height);
+    // 分页控件中心点
+    self.center = center;
+    
+    // 重置所有页码指示器
+    [self resetAllIndicators];
+}
+
+#pragma mark ---------------------------- <method> ----------------------------
+
+#pragma mark - public method
+
 /// 分页控件的尺寸
 /// @param style 分页控件样式
 /// @param count 分页控件总页数
@@ -50,18 +84,7 @@
     }
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    
-    if (self = [super initWithFrame:frame]) {
-        
-        _s_totalPages = 0;
-        _s_currentPage = 0;
-    }
-    
-    return self;
-}
-
-#pragma mark - touchEvent
+#pragma mark - target method
 
 /// 点击分页控件上的页码指示器
 /// @param touches N/A
@@ -81,23 +104,7 @@
     }
 }
 
-#pragma mark - Layout
-
-/// 系统方法
-- (void)sizeToFit {
-    
-    // 分页控件中心点
-    CGPoint center = self.center;
-    // 分页控件的尺寸
-    CGSize size = [self s_sizeWithPageControlStyle:_s_appearance.s_style pages:_s_totalPages];
-    // 分页控件新的frame
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), size.width, size.height);
-    // 分页控件中心点
-    self.center = center;
-    
-    // 重置所有页码指示器
-    [self resetAllIndicators];
-}
+#pragma mark - private method
 
 /// 重置所有页码指示器
 - (void)resetAllIndicators {
@@ -115,9 +122,6 @@
         
         return;
     }
-
-    // 单页隐藏指示器
-    self.hidden = (1 == _s_totalPages) ? _s_appearance.s_hidesForSinglePage : NO;
     
     switch (_s_appearance.s_style) {
             
@@ -298,16 +302,16 @@
     indicator.layer.cornerRadius = 0.1f * MIN(_s_appearance.s_size.width, _s_appearance.s_size.height);
     indicator.layer.masksToBounds = YES;
     
-    //TODO:图片格式
     indicator.s_imageView.image = _s_appearance.s_image;
     indicator.s_textLabel.textColor = _s_appearance.s_textColor;
     indicator.s_textLabel.font = _s_appearance.s_textFont;
     
-    //TODO:文字格式?(固定、数组)
     indicator.s_textLabel.text = [NSString stringWithFormat:@"%@/%@",@(index + 1),@(_s_totalPages)];
 }
 
-#pragma mark - Setter
+#pragma mark ------------------------ <setter & getter> ------------------------
+
+#pragma mark - setter
 
 - (void)setS_totalPages:(NSInteger)s_totalPages {
     
@@ -326,6 +330,7 @@
     }
     
     _s_currentPage = s_currentPage;
+    
     // 刷新页码指示器状态
     [self checkStateAtIndex:s_currentPage];
 }
@@ -338,7 +343,7 @@
     [self resetAllIndicators];
 }
 
-#pragma mark - Getter
+#pragma mark - getter
 
 - (SeedPageControlGraphicIndicator *)textualIndicator {
     

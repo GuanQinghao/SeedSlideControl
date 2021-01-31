@@ -10,22 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 分页控件对齐方式
-typedef NS_ENUM(NSUInteger, SeedPageControlAlignment) {
-    
-    /// 分页控件对齐方式-居左
-    SeedPageControlAlignmentLeft,
-    /// 分页控件对齐方式-居中
-    SeedPageControlAlignmentCenter,
-    /// 分页控件对齐方式-居右
-    SeedPageControlAlignmentRight,
-};
-
-NS_ASSUME_NONNULL_END
-
-
-NS_ASSUME_NONNULL_BEGIN
-
 /// 分页控件样式
 typedef NS_ENUM(NSUInteger, SeedPageControlStyle) {
     
@@ -44,50 +28,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SeedPageControlAppearance : NSObject
 
-#pragma mark - 轮播图属性
-
-/// 分页控件对齐方式
-@property (nonatomic, assign) SeedPageControlAlignment s_alignment;
-/// 分页控件偏移量
-@property (nonatomic, assign) CGPoint s_offset;
-/// 单页是否隐藏分页控件
-@property (nonatomic, assign) BOOL s_hidesForSinglePage;
-/// 是否显示分页控件
-@property (nonatomic, assign) BOOL s_showPageControl;
-
-
 #pragma mark - 分页控件属性
 
-/// 分页控件样式
+/// 分页控件样式, 默认 SeedPageControlStyleClassic
 @property (nonatomic, assign) SeedPageControlStyle s_style;
-/// 页码指示器之间的水平间距
+/// 页码指示器之间的水平间距, 默认 8.0f
 @property (nonatomic, assign) CGFloat s_spacing;
-
 
 #pragma mark - 页码指示器属性
 
-/// 页码指示器大小
+/// 页码指示器大小, 默认 {10.0f,10.0f}
 @property (nonatomic, assign) CGSize s_size;
-/// 页码指示器背景色
+/// 页码指示器背景色, 默认 [UIColor lightGrayColor]
 @property (nonatomic, strong) UIColor *s_backgroundColor;
-/// 页码指示器图片
+/// 页码指示器图片, 默认 nil
 @property (nonatomic, strong) UIImage *s_image;
-/// 页码指示器文字颜色
+/// 页码指示器文字颜色, 默认 [UIColor darkTextColor]
 @property (nonatomic, strong) UIColor *s_textColor;
-/// 页码指示器文字字体
+/// 页码指示器文字字体, 默认 [UIFont systemFontOfSize:10.0f]
 @property (nonatomic, strong) UIFont *s_textFont;
 /// 页码指示器文字内容
 @property (nonatomic, strong) NSString *s_text;
 
-/// 当前页码指示器大小
+/// 当前页码指示器大小, 默认 {10.0f,10.0f}
 @property (nonatomic, assign) CGSize s_currentSize;
-/// 当前页码指示器背景色
+/// 当前页码指示器背景色, 默认 [UIColor lightGrayColor]
 @property (nonatomic, strong) UIColor *s_currentBackgroundColor;
-/// 当前页码指示器图片
+/// 当前页码指示器图片, 默认 nil
 @property (nonatomic, strong) UIImage *s_currentImage;
-/// 当前页码指示器文字颜色
+/// 当前页码指示器文字颜色, 默认 [UIColor darkTextColor]
 @property (nonatomic, strong) UIColor *s_currentTextColor;
-/// 当前页码指示器文字字体
+/// 当前页码指示器文字字体, 默认 [UIFont systemFontOfSize:10.0f]
 @property (nonatomic, strong) UIFont *s_currentTextFont;
 /// 当前页码指示器文字内容
 @property (nonatomic, strong) NSString *s_currentText;

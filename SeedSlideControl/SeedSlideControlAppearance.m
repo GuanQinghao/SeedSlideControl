@@ -14,43 +14,48 @@
     
     if (self = [super init]) {
         
-        //MARK:轮播属性
+        //MARK:轮播控件属性
         // 轮播图类型
-        self.s_style = SeedSlideControlStyleGraphic;
+        _s_style = SeedSlideControlStyleGraphic;
         // 轮播图是否可以滚动
-        self.s_scrollEnabled = YES;
+        _s_scrollEnabled = YES;
         // 轮播图是否无限循环
-        self.s_endless = YES;
+        _s_endless = YES;
         // 自动轮播时间间隔
-        self.s_timeInterval = 5.0f;
-        // 轮播滚动方向, 默认 UICollectionViewScrollDirectionHorizontal
-        self.s_scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        _s_timeInterval = 5.0f;
+        // 轮播滚动方向
+        _s_scrollDirection = UICollectionViewScrollDirectionHorizontal;
         // 轮播占位图
-        self.s_placeholder = nil;
-        // 加载进度视图模式, 默认 SeedSlideControlLoadingProgressModePie
-        self.s_progressMode = SeedSlideControlLoadingProgressModePie;
+        _s_placeholder = nil;
+        // 加载进度视图模式
+        _s_progressMode = SeedSlideControlLoadingProgressModePie;
         
+        // 是否显示分页控件
+        _s_showPageControl = YES;
+        // 单页是否自动隐藏分页控件
+        _s_autoHide = YES;
+        // 分页控件对齐方式
+        _s_alignment = SeedPageControlAlignmentCenter;
+        // 分页控件偏移量
+        _s_offset = CGPointZero;
         
         //MARK: 图文正常轮播类型有效
         // 轮播图片填充模式
-        self.s_contentMode = UIViewContentModeScaleAspectFit;
+        _s_contentMode = UIViewContentModeScaleAspectFit;
         // 是否只显示文本内容
-        self.s_onlyText = NO;
+        _s_onlyText = NO;
         // 文本框背景色
-        self.s_labelBackgroundColor = [UIColor clearColor];
+        _s_labelBackgroundColor = [UIColor clearColor];
         // 文本框文字颜色
-        self.s_labelTextColor = [UIColor darkTextColor];
+        _s_labelTextColor = [UIColor darkTextColor];
         // 文本框文字字体
-        self.s_labelTextFont = [UIFont systemFontOfSize:14.0f];
-        // 文本框高度
-        self.s_labelHeight = 0.0f;
+        _s_labelTextFont = [UIFont systemFontOfSize:14.0f];
         // 文本框文字对齐方式
-        self.s_labelTextAlignment = NSTextAlignmentLeft;
-        
+        _s_labelTextAlignment = NSTextAlignmentLeft;
         
         //MARK: 图片缩放浏览类型有效
         // 最大缩放比例
-        self.s_maximumZoomScale = 5.0f;
+        _s_maximumZoomScale = 2.0f;
     }
     
     return self;

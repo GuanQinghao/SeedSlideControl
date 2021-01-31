@@ -27,8 +27,6 @@
     [self.view addSubview:self.defaultSlideView];
 }
 
-
-
 #pragma mark -- SeedSlideControlDelegate
 
 #pragma mark -- Getter
@@ -50,12 +48,14 @@
         
         SeedSlideControlAppearance *appearance = [[SeedSlideControlAppearance alloc] init];
         appearance.s_style = SeedSlideControlStyleZoomable;
-        appearance.s_endless = NO;
+//        appearance.s_style = SeedPageControlStyleGraphic;
+        appearance.s_endless = YES;
         _defaultSlideView.s_slideControlAppearance = appearance;
         
         SeedPageControlAppearance *pageControlAppearance = [[SeedPageControlAppearance alloc] init];
         pageControlAppearance.s_style = SeedPageControlStyleTextual;
         pageControlAppearance.s_size = CGSizeMake(60.0f, 40.0f);
+        pageControlAppearance.s_backgroundColor = UIColor.grayColor;
         _defaultSlideView.s_pageControlAppearance = pageControlAppearance;
     }
     

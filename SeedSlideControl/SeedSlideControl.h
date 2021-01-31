@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SeedPageControl.h"
+#import "SeedPageControlAppearance.h"
 #import "SeedSlideControlAppearance.h"
 
 
@@ -65,9 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 滚动监听
 @property (nonatomic, copy) void (^s_scrollToItemMonitorBlock)(NSInteger index);
 
-/// 轮播属性
+/// 轮播控件外观属性
 @property (nonatomic, strong) SeedSlideControlAppearance *s_slideControlAppearance;
-/// 分页控件属性
+/// 分页控件外观属性
 @property (nonatomic, strong) SeedPageControlAppearance *s_pageControlAppearance;
 
 @end

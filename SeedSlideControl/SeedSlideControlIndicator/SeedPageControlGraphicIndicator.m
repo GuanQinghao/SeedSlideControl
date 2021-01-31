@@ -10,12 +10,14 @@
 
 @implementation SeedPageControlGraphicIndicator
 
+#pragma mark --------------------------- <lifecycle> ---------------------------
+
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
         
         // 背景色
-        self.backgroundColor = UIColor.whiteColor;
+        self.backgroundColor = UIColor.lightGrayColor;
         
         // 图片视图
         [self addSubview:self.s_imageView];
@@ -26,6 +28,8 @@
     return self;
 }
 
+#pragma mark ---------------------------- <layout> ----------------------------
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -34,9 +38,11 @@
     self.s_imageView.frame = self.bounds;
 }
 
-#pragma mark - Setter
+#pragma mark ------------------------ <setter & getter> ------------------------
 
-#pragma mark - Getter
+#pragma mark - setter
+
+#pragma mark - getter
 
 - (UIImageView *)s_imageView {
     

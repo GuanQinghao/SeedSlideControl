@@ -17,6 +17,8 @@
 
 @implementation SeedPageControlTextualIndicator
 
+#pragma mark --------------------------- <lifecycle> ---------------------------
+
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
@@ -29,6 +31,8 @@
     
     return self;
 }
+
+#pragma mark ---------------------------- <layout> ----------------------------
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -49,7 +53,9 @@
     self.layer.masksToBounds = YES;
 }
 
-#pragma mark - Setter
+#pragma mark ------------------------ <setter & getter> ------------------------
+
+#pragma mark - setter
 
 - (void)setS_textColor:(UIColor *)s_textColor {
     
@@ -71,7 +77,7 @@
     [self.textLabel sizeToFit];
 }
 
-#pragma mark - Getter
+#pragma mark - getter
 
 - (UILabel *)textLabel {
     

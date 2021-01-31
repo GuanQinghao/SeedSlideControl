@@ -15,7 +15,7 @@
 
 + (instancetype)s_reloadButton {
     
-    UIButton *internalButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    SeedSlideControlReloadButton *internalButton = [SeedSlideControlReloadButton buttonWithType:UIButtonTypeCustom];
     internalButton.backgroundColor = [UIColor grayColor];
     internalButton.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
     internalButton.layer.cornerRadius = 5.0f;
