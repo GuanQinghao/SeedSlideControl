@@ -52,8 +52,6 @@ UICollectionViewDelegateFlowLayout> {
 @property (nonatomic, strong) UICollectionView *slideCollectionView;
 /// 分页控件
 @property (nonatomic, strong) SeedPageControl *pageControl;
-/// 背景图片视图
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 /// 定时器
 @property (nonatomic, weak) NSTimer *timer;
@@ -107,7 +105,6 @@ UICollectionViewDelegateFlowLayout> {
     [super layoutSubviews];
     NSLog(@"");
     
-    _backgroundImageView.frame = self.bounds;
     _slideCollectionView.frame = self.bounds;
     _flowLayout.itemSize = self.bounds.size;
     
@@ -214,15 +211,15 @@ UICollectionViewDelegateFlowLayout> {
                 // 轮播控件类型-图文正常轮播
                 SeedSlideControlGraphicCollectionViewCell *internalCell = (SeedSlideControlGraphicCollectionViewCell *)cell;
                 
-                internalCell.s_asset = _s_dataSource[indexPath.item];
-                internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
-                internalCell.s_progressMode = _s_slideControlAppearance.s_progressMode;
-                internalCell.s_contentMode = _s_slideControlAppearance.s_contentMode;
-                internalCell.s_onlyText = _s_slideControlAppearance.s_onlyText;
                 internalCell.s_labelTextFont = _s_slideControlAppearance.s_labelTextFont;
                 internalCell.s_labelTextColor = _s_slideControlAppearance.s_labelTextColor;
                 internalCell.s_labelBackgroundColor = _s_slideControlAppearance.s_labelBackgroundColor;
                 internalCell.s_labelTextAlignment = _s_slideControlAppearance.s_labelTextAlignment;
+                internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
+                internalCell.s_progressMode = _s_slideControlAppearance.s_progressMode;
+                internalCell.s_contentMode = _s_slideControlAppearance.s_contentMode;
+                internalCell.s_onlyText = _s_slideControlAppearance.s_onlyText;
+                internalCell.s_asset = _s_dataSource[indexPath.item];
                 
                 return internalCell;
             }
@@ -232,10 +229,10 @@ UICollectionViewDelegateFlowLayout> {
                 // 轮播控件类型-图片缩放浏览
                 SeedSlideControlZoomableCollectionViewCell *internalCell = (SeedSlideControlZoomableCollectionViewCell *)cell;
                 
-                internalCell.s_asset = _s_dataSource[indexPath.item];
                 internalCell.s_placeholder = _s_slideControlAppearance.s_placeholder;
                 internalCell.s_progressMode = _s_slideControlAppearance.s_progressMode;
                 internalCell.s_maximumZoomScale = _s_slideControlAppearance.s_maximumZoomScale;
+                internalCell.s_asset = _s_dataSource[indexPath.item];
                 internalCell.s_onClick = ^(id  _Nullable sender) {
                     
                     if ([self.s_delegate respondsToSelector:@selector(s_slideControl:didSelectItemAtIndex:)]) {
@@ -584,18 +581,6 @@ UICollectionViewDelegateFlowLayout> {
     
     // 滚动方向
     _flowLayout.scrollDirection = s_slideControlAppearance.s_scrollDirection;
-    
-    // 占位图
-    if (!_backgroundImageView) {
-        
-        UIImageView *backgroundView = [[UIImageView alloc] init];
-        backgroundView.userInteractionEnabled = YES;
-        backgroundView.contentMode = UIViewContentModeScaleToFill;
-        [self insertSubview:backgroundView belowSubview:_slideCollectionView];
-        _backgroundImageView = backgroundView;
-    }
-    
-    _backgroundImageView.image = s_slideControlAppearance.s_placeholder;
 }
 
 - (void)setS_pageControlAppearance:(SeedPageControlAppearance *)s_pageControlAppearance {
