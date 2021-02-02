@@ -13,6 +13,7 @@
 
 #pragma mark --------------------------- <lifecycle> ---------------------------
 
+/// 重新加载按钮
 + (instancetype)s_reloadButton {
     
     SeedSlideControlReloadButton *internalButton = [SeedSlideControlReloadButton buttonWithType:UIButtonTypeCustom];

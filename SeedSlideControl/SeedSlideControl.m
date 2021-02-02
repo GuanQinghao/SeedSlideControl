@@ -27,9 +27,13 @@ static NSString *kSlideControlCollectionViewCellKey = @"kSlideControlCollectionV
 /// 滑动视图的手动拖拽方向
 typedef NS_ENUM(NSUInteger, UIScrollViewScrollingDirection) {
     
+    /// 向上拖拽
     UIScrollViewScrollingDirectionUp,
+    /// 向下拖拽
     UIScrollViewScrollingDirectionDown,
+    /// 向左拖拽
     UIScrollViewScrollingDirectionLeft,
+    /// 向右拖拽
     UIScrollViewScrollingDirectionRight,
 };
 
@@ -40,9 +44,9 @@ UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout> {
     
     //MARK:判断滑动方向
-    // 记录滚动视图最后一次偏移量
+    /// 记录滚动视图最后一次偏移量
     CGPoint lastContentOffset;
-    // 滚动视图的滚动方向
+    /// 滚动视图的滚动方向
     UIScrollViewScrollingDirection scrollingDirection;
 }
 

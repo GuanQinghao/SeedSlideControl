@@ -12,8 +12,10 @@
 /// 加载进度视图模式
 typedef NS_ENUM(NSUInteger, SeedSlideControlLoadingProgressMode) {
     
-    SeedSlideControlLoadingProgressModePie,    /// 饼形
-    SeedSlideControlLoadingProgressModeCircle, /// 环形
+    /// 饼形
+    SeedSlideControlLoadingProgressModePie,
+    /// 环形
+    SeedSlideControlLoadingProgressModeCircle,
 };
 
 

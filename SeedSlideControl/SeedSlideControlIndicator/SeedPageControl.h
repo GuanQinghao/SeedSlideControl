@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 分页控件
 @interface SeedPageControl : UIControl
 
 /// 代理

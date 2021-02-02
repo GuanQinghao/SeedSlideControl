@@ -13,9 +13,9 @@
 
 @interface SeedSlideControlZoomableCollectionViewCell () <UIScrollViewDelegate> {
     
-    // 图片视图显示宽度
+    /// 图片视图显示宽度
     CGFloat _displayWidth;
-    // 图片视图显示高度
+    /// 图片视图显示高度
     CGFloat _displayHeight;
 }
 
@@ -40,12 +40,12 @@
         
         self.clipsToBounds = YES;
         
-        /// 添加手势
+        // 添加手势
         [self addGestureRecognizer];
         
-        /// 容器视图
+        // 容器视图
         [self.contentView addSubview:self.scrollView];
-        /// 图片视图
+        // 图片视图
         [self.scrollView addSubview:self.imageView];
         
         // 图片视图显示宽度

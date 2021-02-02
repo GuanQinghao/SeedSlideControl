@@ -11,8 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 轮播控件重新加载按钮
 @interface SeedSlideControlReloadButton : UIButton
 
+/// 重新加载按钮
 + (instancetype)s_reloadButton;
 
 @end

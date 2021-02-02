@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 分页控件外观属性
 @interface SeedPageControlAppearance : NSObject
 
 #pragma mark - 分页控件属性
